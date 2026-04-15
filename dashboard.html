@@ -1,0 +1,2835 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./assets/images/Gold-Bars.png" />
+    <title>GoldTrack — Gold Management System</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="./assets/fontawesome/all.min.css" />
+    <link rel="stylesheet" href="./assets/custom/dashboard/css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="./assets/custom/profile/css/profile-settings-styles.css"
+    />
+  </head>
+  <body>
+    <div class="app">
+      <!-- NAVBAR -->
+      <nav class="navbar">
+        <button
+          class="sidebar-toggle"
+          id="sidebarToggle"
+          aria-label="Toggle sidebar"
+          aria-expanded="false"
+        >
+          <small class="sidebar-tg-icon"><i class="fas fa-bars"></i></small>
+          <span></span><span></span><span></span>
+        </button>
+        <a class="nav-logo" href="#" onclick="return false;">
+          <div class="nav-logo-icon">G</div>
+          <span class="nav-logo-text">Gold<span>Track</span></span>
+        </a>
+
+        <div class="nav-search" id="navSearchWrap" style="position: relative">
+          <i class="fa fa-search" id="navSearchIcon"></i>
+          <input
+            type="text"
+            placeholder="Search transactions, customers, pages…"
+            id="globalSearch"
+            autocomplete="off"
+          />
+          <button class="clear-btn" id="navClearBtn" title="Clear search">
+            <i class="fa fa-xmark"></i>
+          </button>
+          <div class="search-results" id="searchResults"></div>
+        </div>
+
+        <div class="nav-right">
+          <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+            <i class="fa fa-moon"></i>
+          </button>
+
+          <!-- Notifications -->
+          <div class="dropdown-rel">
+            <button class="nav-btn" id="notifBtn">
+              <i class="fa fa-bell"></i>
+              <span class="badge"></span>
+            </button>
+            <div class="dropdown" id="notifDropdown">
+              <div class="dropdown-header">
+                Notifications
+                <span
+                  style="
+                    float: right;
+                    color: var(--gold);
+                    cursor: pointer;
+                    font-size: 11px;
+                  "
+                  >Mark all read</span
+                >
+              </div>
+              <div class="notif-item unread">
+                <div class="notif-dot"></div>
+                <div>
+                  <div class="notif-text">
+                    New gold purchase order —
+                    <strong>John Asante</strong> bought 50g 22K
+                  </div>
+                  <div class="notif-time">2 min ago</div>
+                </div>
+              </div>
+              <div class="notif-item unread">
+                <div class="notif-dot"></div>
+                <div>
+                  <div class="notif-text">
+                    Gold price alert: XAU/USD crossed <strong>$3,350</strong>
+                  </div>
+                  <div class="notif-time">14 min ago</div>
+                </div>
+              </div>
+              <div class="notif-item unread">
+                <div class="notif-dot"></div>
+                <div>
+                  <div class="notif-text">
+                    Payment received from <strong>Ama Osei</strong> — GHS 18,500
+                  </div>
+                  <div class="notif-time">1 hr ago</div>
+                </div>
+              </div>
+              <div class="notif-item">
+                <div class="notif-dot"></div>
+                <div>
+                  <div class="notif-text">
+                    Monthly report for March is ready to download
+                  </div>
+                  <div class="notif-time">3 hrs ago</div>
+                </div>
+              </div>
+              <div class="notif-item">
+                <div class="notif-dot"></div>
+                <div>
+                  <div class="notif-text">
+                    <strong>Kwame Boateng</strong> account updated — VIP tier
+                  </div>
+                  <div class="notif-time">Yesterday</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Avatar -->
+          <div class="dropdown-rel">
+            <div class="nav-avatar" id="userAvatarBtn">
+              <img src="./assets/images/avatar1.jpg" />
+            </div>
+            <div class="dropdown user-dropdown" id="userDropdown">
+              <div class="user-info">
+                <div class="user-info-av">
+                  <img src="./assets/images/avatar1.jpg" />
+                </div>
+                <div>
+                  <div class="user-info-name">Ama Owusu</div>
+                  <div class="user-info-role">Gold Trader — Admin</div>
+                </div>
+              </div>
+              <div class="user-menu-item" onclick="showPage('dashboard')">
+                <i class="fa fa-gauge"></i> Dashboard
+              </div>
+              <div class="user-menu-item">
+                <i class="fa fa-user"></i> Profile
+              </div>
+              <div class="user-menu-item">
+                <i class="fa fa-gear"></i> Settings
+              </div>
+              <div class="user-menu-item danger">
+                <i class="fa fa-right-from-bracket"></i> Log out
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- BODY -->
+      <div class="body-wrap">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+          <div class="sidebar-nav">
+            <div class="sidebar-section">Main</div>
+            <div class="nav-item active" data-page="dashboard">
+              <i class="fa fa-gauge"></i><span>Dashboard</span>
+            </div>
+            <div class="nav-item" data-page="transactions">
+              <i class="fa fa-arrow-right-arrow-left"></i
+              ><span>Transactions</span>
+            </div>
+            <div class="nav-item" data-page="customers">
+              <i class="fa fa-users"></i><span>Customers</span>
+            </div>
+            <div class="sidebar-section">Tools</div>
+            <div class="nav-item" data-page="calculator">
+              <i class="fa fa-calculator"></i><span>Calculator</span>
+            </div>
+            <div class="nav-item" data-page="reports">
+              <i class="fa fa-chart-bar"></i><span>Reports</span>
+            </div>
+            <div class="nav-item" data-page="receipts">
+              <i class="fa fa-receipt"></i><span>Receipts</span>
+            </div>
+          </div>
+          <div class="gold-price-widget">
+            <div class="gpw-label">
+              <span class="live-dot"></span>Live Gold Price
+            </div>
+            <div class="gpw-price" id="sidebarGoldPrice">$3,342.80</div>
+            <div class="gpw-change gpw-up" id="sidebarGoldChange">
+              <i class="fa fa-arrow-trend-up"></i> +$8.40 (+0.25%)
+            </div>
+            <div class="gpw-sub" id="sidebarGoldDate">
+              XAU/USD · Updated just now
+            </div>
+          </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main-content" id="mainContent">
+          <!-- ======================== DASHBOARD ======================== -->
+          <div class="page active" id="page-dashboard">
+            <div class="page-header">
+              <div>
+                <div class="page-title">Dashboard <span>Overview</span></div>
+                <div class="page-subtitle">
+                  Good morning, Ama — here's what's happening today
+                </div>
+              </div>
+              <button class="btn btn-gold" onclick="openTxModal()">
+                <i class="fa fa-plus"></i> New Transaction
+              </button>
+            </div>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-icon gold"><i class="fa fa-coins"></i></div>
+                <div class="stat-label">Total Gold Traded</div>
+                <div class="stat-value">2,847g</div>
+                <div class="stat-change up">
+                  <i class="fa fa-arrow-trend-up"></i> +12.4% this month
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon green">
+                  <i class="fa fa-money-bill-wave"></i>
+                </div>
+                <div class="stat-label">Total Revenue</div>
+                <div class="stat-value">GHS 1.2M</div>
+                <div class="stat-change up">
+                  <i class="fa fa-arrow-trend-up"></i> +8.7% this month
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon blue"><i class="fa fa-users"></i></div>
+                <div class="stat-label">Active Customers</div>
+                <div class="stat-value">348</div>
+                <div class="stat-change up">
+                  <i class="fa fa-arrow-trend-up"></i> +24 new this month
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon red">
+                  <i class="fa fa-arrow-right-arrow-left"></i>
+                </div>
+                <div class="stat-label">Transactions Today</div>
+                <div class="stat-value">47</div>
+                <div class="stat-change down">
+                  <i class="fa fa-arrow-trend-down"></i> -3 from yesterday
+                </div>
+              </div>
+            </div>
+            <div class="charts-row">
+              <div class="chart-card">
+                <div class="chart-title">Revenue & Volume</div>
+                <div class="chart-sub">
+                  Monthly performance — last 12 months
+                </div>
+                <div class="chart-wrap">
+                  <canvas id="revenueChart"></canvas>
+                </div>
+              </div>
+              <div class="chart-card">
+                <div class="chart-title">Transaction Types</div>
+                <div class="chart-sub">Buy vs Sell breakdown</div>
+                <div class="chart-wrap"><canvas id="donutChart"></canvas></div>
+              </div>
+            </div>
+            <div class="bottom-row">
+              <div class="recent-wrap" style="margin-bottom: 0">
+                <div class="table-card">
+                  <div class="table-toolbar">
+                    <div class="table-toolbar-left">
+                      <div class="table-title">Recent Transactions</div>
+                      <span class="table-count" id="dashTxCount">5</span>
+                    </div>
+                    <a
+                      href="#"
+                      onclick="
+                        showPage('transactions');
+                        return false;
+                      "
+                      style="
+                        font-size: 12px;
+                        color: var(--gold);
+                        text-decoration: none;
+                      "
+                      >View all →</a
+                    >
+                  </div>
+                  <div style="overflow-x: auto">
+                    <table id="dashTxTable">
+                      <thead>
+                        <tr>
+                          <th>Customer</th>
+                          <th>Type</th>
+                          <th>Weight</th>
+                          <th>Amount</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody id="dashTxBody"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="market-card">
+                <div class="chart-title" style="margin-bottom: 14px">
+                  Market Prices
+                </div>
+                <div class="market-item">
+                  <div>
+                    <div class="market-name">Gold (XAU/USD)</div>
+                    <div style="font-size: 11px; color: var(--text3)">
+                      Troy Ounce
+                    </div>
+                  </div>
+                  <div style="text-align: right">
+                    <div class="market-price">$3,342.80</div>
+                    <span class="market-chg market-up">+0.25%</span>
+                  </div>
+                </div>
+                <div class="market-item">
+                  <div>
+                    <div class="market-name">Gold (XAU/GHS)</div>
+                    <div style="font-size: 11px; color: var(--text3)">
+                      Ghana Cedi
+                    </div>
+                  </div>
+                  <div style="text-align: right">
+                    <div class="market-price">GHS 51,240</div>
+                    <span class="market-chg market-up">+0.30%</span>
+                  </div>
+                </div>
+                <div class="market-item">
+                  <div>
+                    <div class="market-name">Gold per Gram (22K)</div>
+                    <div style="font-size: 11px; color: var(--text3)">USD</div>
+                  </div>
+                  <div style="text-align: right">
+                    <div class="market-price">$98.42</div>
+                    <span class="market-chg market-dn">-0.10%</span>
+                  </div>
+                </div>
+                <div class="market-item">
+                  <div>
+                    <div class="market-name">Silver (XAG/USD)</div>
+                    <div style="font-size: 11px; color: var(--text3)">
+                      Troy Ounce
+                    </div>
+                  </div>
+                  <div style="text-align: right">
+                    <div class="market-price">$32.14</div>
+                    <span class="market-chg market-up">+0.62%</span>
+                  </div>
+                </div>
+                <div class="market-item">
+                  <div>
+                    <div class="market-name">USD/GHS Rate</div>
+                    <div style="font-size: 11px; color: var(--text3)">
+                      Exchange
+                    </div>
+                  </div>
+                  <div style="text-align: right">
+                    <div class="market-price">15.32</div>
+                    <span class="market-chg market-dn">-0.08%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ======================== TRANSACTIONS ======================== -->
+          <div class="page" id="page-transactions">
+            <div class="page-header">
+              <div>
+                <div class="page-title">Transactions</div>
+                <div class="page-subtitle">All gold buy & sell records</div>
+              </div>
+              <div style="display: flex; gap: 8px">
+                <button
+                  class="btn btn-outline"
+                  onclick="exportToExcel('transactions')"
+                >
+                  <i class="fa fa-file-excel"></i> Export
+                </button>
+                <button class="btn btn-gold" onclick="openTxModal()">
+                  <i class="fa fa-plus"></i> New
+                </button>
+              </div>
+            </div>
+            <div class="table-card">
+              <div class="table-toolbar">
+                <div class="table-toolbar-left">
+                  <div class="table-title">All Transactions</div>
+                  <span class="table-count" id="txVisibleCount"></span>
+                </div>
+                <div class="table-search">
+                  <i class="fa fa-search"></i>
+                  <input
+                    type="text"
+                    id="txSearch"
+                    placeholder="Search transactions…"
+                  />
+                </div>
+              </div>
+              <div style="overflow-x: auto">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Date</th>
+                      <th>Customer</th>
+                      <th>Type</th>
+                      <th>Karat</th>
+                      <th>Weight</th>
+                      <th>Unit Price</th>
+                      <th>Total (GHS)</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="txBody"></tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div class="table-info" id="txInfo"></div>
+                <button
+                  class="load-more-btn"
+                  id="txLoadMore"
+                  onclick="loadMoreTx()"
+                >
+                  Load More
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ======================== CUSTOMERS ======================== -->
+          <div class="page" id="page-customers">
+            <div class="page-header">
+              <div>
+                <div class="page-title">Customers</div>
+                <div class="page-subtitle">Manage your client base</div>
+              </div>
+              <div style="display: flex; gap: 8px">
+                <button
+                  class="btn btn-outline"
+                  onclick="exportToExcel('customers')"
+                >
+                  <i class="fa fa-file-excel"></i> Export
+                </button>
+                <button class="btn btn-gold" onclick="openCustModal()">
+                  <i class="fa fa-user-plus"></i> Add Customer
+                </button>
+              </div>
+            </div>
+            <div class="table-card">
+              <div class="table-toolbar">
+                <div class="table-toolbar-left">
+                  <div class="table-title">All Customers</div>
+                  <span class="table-count" id="custVisibleCount"></span>
+                </div>
+                <div class="table-search">
+                  <i class="fa fa-search"></i>
+                  <input
+                    type="text"
+                    id="custSearch"
+                    placeholder="Search customers…"
+                  />
+                </div>
+              </div>
+              <div style="overflow-x: auto">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Customer</th>
+                      <th>Phone</th>
+                      <th>Location</th>
+                      <th>Total Purchases</th>
+                      <th>Total Spent</th>
+                      <th>Tier</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="custBody"></tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <div class="table-info" id="custInfo"></div>
+                <button
+                  class="load-more-btn"
+                  id="custLoadMore"
+                  onclick="loadMoreCust()"
+                >
+                  Load More
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ======================== CALCULATOR ======================== -->
+          <div class="page" id="page-calculator">
+            <div class="page-header">
+              <div>
+                <div class="page-title">Gold <span>Calculator</span></div>
+                <div class="page-subtitle">
+                  Calculate gold values, margins and prices
+                </div>
+              </div>
+            </div>
+            <div class="calc-wrap">
+              <div>
+                <div class="calc-card" style="margin-bottom: 16px">
+                  <div class="calc-title">
+                    <i class="fa fa-calculator"></i> Price Calculator
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Weight (grams)</label>
+                    <input
+                      type="number"
+                      class="form-input"
+                      id="calcWeight"
+                      value="10"
+                      min="0.01"
+                      step="0.01"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Karat</label>
+                    <select class="form-select" id="calcKarat">
+                      <option value="24">24K — Pure Gold (99.9%)</option>
+                      <option value="22" selected>22K (91.6%)</option>
+                      <option value="21">21K (87.5%)</option>
+                      <option value="18">18K (75.0%)</option>
+                      <option value="14">14K (58.3%)</option>
+                      <option value="10">10K (41.7%)</option>
+                      <option value="9">9K (37.5%)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Currency</label>
+                    <select class="form-select" id="calcCurrency">
+                      <option value="USD">USD ($)</option>
+                      <option value="GHS" selected>GHS (₵)</option>
+                      <option value="EUR">EUR (€)</option>
+                      <option value="GBP">GBP (£)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Margin / Making Charge (%)</label>
+                    <input
+                      type="number"
+                      class="form-input"
+                      id="calcMargin"
+                      value="5"
+                      min="0"
+                      step="0.5"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Transaction Type</label>
+                    <select class="form-select" id="calcType">
+                      <option value="buy">Buy (from customer)</option>
+                      <option value="sell" selected>Sell (to customer)</option>
+                    </select>
+                  </div>
+                  <button
+                    class="btn btn-gold"
+                    style="
+                      width: 100%;
+                      justify-content: center;
+                      margin-top: 4px;
+                    "
+                    onclick="calcGold()"
+                  >
+                    <i class="fa fa-equals"></i> Calculate
+                  </button>
+                  <div class="calc-result" id="calcResult">
+                    <div class="calc-result-label">Estimated Value</div>
+                    <div class="calc-result-val" id="calcVal">—</div>
+                    <div class="calc-result-sub" id="calcSub"></div>
+                    <div class="calc-breakdown" id="calcBreakdown"></div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="calc-card" style="margin-bottom: 16px">
+                  <div class="calc-title">
+                    <i class="fa fa-table-list"></i> Karat Reference Table
+                  </div>
+                  <div style="overflow-x: auto">
+                    <table class="karat-table">
+                      <thead>
+                        <tr>
+                          <th>Karat</th>
+                          <th>Purity</th>
+                          <th>Per Gram (USD)</th>
+                          <th>Per Gram (GHS)</th>
+                        </tr>
+                      </thead>
+                      <tbody id="karatTableBody"></tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="calc-card">
+                  <div class="calc-title">
+                    <i class="fa fa-chart-line"></i> Gold Price Simulator
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Spot Price (USD/oz)</label>
+                    <input
+                      type="number"
+                      class="form-input"
+                      id="simSpot"
+                      value="3342.80"
+                      step="0.01"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">USD/GHS Rate</label>
+                    <input
+                      type="number"
+                      class="form-input"
+                      id="simRate"
+                      value="15.32"
+                      step="0.01"
+                    />
+                  </div>
+                  <button
+                    class="btn btn-outline"
+                    style="width: 100%; justify-content: center"
+                    onclick="updateKaratTable()"
+                  >
+                    <i class="fa fa-rotate"></i> Refresh Table
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ======================== REPORTS ======================== -->
+          <!-- ======================== REPORTS ======================== -->
+          <div class="page" id="page-reports">
+            <div class="page-header">
+              <div>
+                <div class="page-title">Reports</div>
+                <div class="page-subtitle">
+                  Generate and export business reports
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px" id="reportHeaderActions">
+                <button
+                  class="btn btn-outline"
+                  id="rptBackBtn"
+                  onclick="showReportHome()"
+                  style="display: none"
+                >
+                  <i class="fa fa-arrow-left"></i> All Reports
+                </button>
+                <button
+                  class="btn btn-outline"
+                  id="rptExportBtn"
+                  onclick="exportCurrentReport()"
+                  style="display: none"
+                >
+                  <i class="fa fa-file-excel"></i> Export
+                </button>
+                <button
+                  class="btn btn-outline"
+                  id="rptPrintBtn"
+                  onclick="window.print()"
+                  style="display: none"
+                >
+                  <i class="fa fa-print"></i> Print
+                </button>
+              </div>
+            </div>
+
+            <!-- ── Report Home ── -->
+            <div id="rpt-home">
+              <div class="reports-grid">
+                <div class="report-card" onclick="openReport('sales')">
+                  <div class="report-icon">
+                    <i class="fa fa-chart-line"></i>
+                  </div>
+                  <div class="report-name">Sales Report</div>
+                  <div class="report-desc">
+                    Monthly and yearly gold sales summary with charts and
+                    breakdown by karat.
+                  </div>
+                  <div class="report-card-footer">
+                    <span class="rpt-badge rpt-badge-gold">Updated today</span>
+                  </div>
+                </div>
+                <div class="report-card" onclick="openReport('customers')">
+                  <div class="report-icon"><i class="fa fa-users"></i></div>
+                  <div class="report-name">Customer Report</div>
+                  <div class="report-desc">
+                    Client activity, spending tiers, and acquisition trends over
+                    selected period.
+                  </div>
+                  <div class="report-card-footer">
+                    <span class="rpt-badge rpt-badge-blue">80 clients</span>
+                  </div>
+                </div>
+                <div class="report-card" onclick="openReport('inventory')">
+                  <div class="report-icon"><i class="fa fa-coins"></i></div>
+                  <div class="report-name">Inventory Report</div>
+                  <div class="report-desc">
+                    Gold stock levels, karat breakdown and movement history.
+                  </div>
+                  <div class="report-card-footer">
+                    <span class="rpt-badge rpt-badge-green">In stock</span>
+                  </div>
+                </div>
+                <div class="report-card" onclick="openReport('pnl')">
+                  <div class="report-icon">
+                    <i class="fa fa-money-bill-trend-up"></i>
+                  </div>
+                  <div class="report-name">Profit & Loss</div>
+                  <div class="report-desc">
+                    Revenue vs cost analysis with margin calculations across all
+                    transactions.
+                  </div>
+                  <div class="report-card-footer">
+                    <span class="rpt-badge rpt-badge-gold">+22.4% margin</span>
+                  </div>
+                </div>
+                <div class="report-card" onclick="openReport('txlog')">
+                  <div class="report-icon"><i class="fa fa-receipt"></i></div>
+                  <div class="report-name">Transaction Log</div>
+                  <div class="report-desc">
+                    Complete auditable log of all buy and sell transactions with
+                    filters.
+                  </div>
+                  <div class="report-card-footer">
+                    <span class="rpt-badge rpt-badge-blue">120 records</span>
+                  </div>
+                </div>
+                <div class="report-card" onclick="openReport('pricehistory')">
+                  <div class="report-icon">
+                    <i class="fa fa-arrow-trend-up"></i>
+                  </div>
+                  <div class="report-name">Price History</div>
+                  <div class="report-desc">
+                    Historical gold price chart and comparison with your
+                    transaction prices.
+                  </div>
+                  <div class="report-card-footer">
+                    <span class="rpt-badge rpt-badge-green">XAU/USD live</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="chart-card">
+                <div class="chart-title">Annual Performance Overview</div>
+                <div class="chart-sub">
+                  Revenue, volume and transactions — 2024
+                </div>
+                <div class="chart-wrap" style="height: 260px">
+                  <canvas id="annualChart"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <!-- ════════════════════════════════════════════
+       SALES REPORT
+  ════════════════════════════════════════════ -->
+            <div id="rpt-sales" style="display: none">
+              <div class="rpt-filter-bar">
+                <div class="rpt-filter-group">
+                  <label class="rpt-filter-label">Period</label>
+                  <select
+                    class="rpt-filter-select"
+                    id="salesPeriod"
+                    onchange="renderSalesReport()"
+                  >
+                    <option value="month">This Month</option>
+                    <option value="quarter">This Quarter</option>
+                    <option value="year" selected>This Year</option>
+                    <option value="all">All Time</option>
+                  </select>
+                </div>
+                <div class="rpt-filter-group">
+                  <label class="rpt-filter-label">Karat</label>
+                  <select
+                    class="rpt-filter-select"
+                    id="salesKarat"
+                    onchange="renderSalesReport()"
+                  >
+                    <option value="all" selected>All Karats</option>
+                    <option value="24">24K</option>
+                    <option value="22">22K</option>
+                    <option value="21">21K</option>
+                    <option value="18">18K</option>
+                    <option value="14">14K</option>
+                  </select>
+                </div>
+                <div class="rpt-filter-group">
+                  <label class="rpt-filter-label">Type</label>
+                  <select
+                    class="rpt-filter-select"
+                    id="salesType"
+                    onchange="renderSalesReport()"
+                  >
+                    <option value="all" selected>Buy & Sell</option>
+                    <option value="Sell">Sell only</option>
+                    <option value="Buy">Buy only</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="rpt-kpi-row" id="salesKpiRow"></div>
+
+              <div class="rpt-charts-row">
+                <div class="chart-card" style="flex: 2">
+                  <div class="chart-title">Monthly Revenue</div>
+                  <div class="chart-sub">GHS revenue by month</div>
+                  <div class="chart-wrap" style="height: 240px">
+                    <canvas id="salesRevenueChart"></canvas>
+                  </div>
+                </div>
+                <div class="chart-card" style="flex: 1">
+                  <div class="chart-title">Sales by Karat</div>
+                  <div class="chart-sub">Volume breakdown</div>
+                  <div class="chart-wrap" style="height: 240px">
+                    <canvas id="salesKaratChart"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-card" style="margin-top: 20px">
+                <div class="table-toolbar">
+                  <div class="table-toolbar-left">
+                    <div class="table-title">Sales Breakdown</div>
+                    <span class="table-count" id="salesTableCount"></span>
+                  </div>
+                  <div class="table-search">
+                    <i class="fa fa-search"></i>
+                    <input
+                      type="text"
+                      id="salesSearch"
+                      placeholder="Search…"
+                      oninput="renderSalesTable()"
+                    />
+                  </div>
+                </div>
+                <div style="overflow-x: auto">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Customer</th>
+                        <th>Type</th>
+                        <th>Karat</th>
+                        <th>Weight (g)</th>
+                        <th>Unit Price</th>
+                        <th>Total (GHS)</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="salesTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- ════════════════════════════════════════════
+       CUSTOMER REPORT
+  ════════════════════════════════════════════ -->
+            <div id="rpt-customers" style="display: none">
+              <div class="rpt-filter-bar">
+                <div class="rpt-filter-group">
+                  <label class="rpt-filter-label">Tier</label>
+                  <select
+                    class="rpt-filter-select"
+                    id="custRptTier"
+                    onchange="renderCustomerReport()"
+                  >
+                    <option value="all" selected>All Tiers</option>
+                    <option value="VIP">VIP</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Silver">Silver</option>
+                    <option value="Bronze">Bronze</option>
+                  </select>
+                </div>
+                <div class="rpt-filter-group">
+                  <label class="rpt-filter-label">Status</label>
+                  <select
+                    class="rpt-filter-select"
+                    id="custRptStatus"
+                    onchange="renderCustomerReport()"
+                  >
+                    <option value="all" selected>All</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+                </div>
+                <div class="rpt-filter-group">
+                  <label class="rpt-filter-label">Location</label>
+                  <select
+                    class="rpt-filter-select"
+                    id="custRptLocation"
+                    onchange="renderCustomerReport()"
+                  >
+                    <option value="all" selected>All Locations</option>
+                    <option>Accra</option>
+                    <option>Kumasi</option>
+                    <option>Takoradi</option>
+                    <option>Tamale</option>
+                    <option>Tema</option>
+                    <option>Cape Coast</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="rpt-kpi-row" id="custKpiRow"></div>
+
+              <div class="rpt-charts-row">
+                <div class="chart-card" style="flex: 1">
+                  <div class="chart-title">Customers by Tier</div>
+                  <div class="chart-sub">Spending tier distribution</div>
+                  <div class="chart-wrap" style="height: 220px">
+                    <canvas id="custTierChart"></canvas>
+                  </div>
+                </div>
+                <div class="chart-card" style="flex: 1">
+                  <div class="chart-title">Top Locations</div>
+                  <div class="chart-sub">Customers by city</div>
+                  <div class="chart-wrap" style="height: 220px">
+                    <canvas id="custLocationChart"></canvas>
+                  </div>
+                </div>
+                <div class="chart-card" style="flex: 1">
+                  <div class="chart-title">Status Ratio</div>
+                  <div class="chart-sub">Active vs inactive</div>
+                  <div class="chart-wrap" style="height: 220px">
+                    <canvas id="custStatusChart"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-card" style="margin-top: 20px">
+                <div class="table-toolbar">
+                  <div class="table-toolbar-left">
+                    <div class="table-title">Customer Details</div>
+                    <span class="table-count" id="custRptCount"></span>
+                  </div>
+                  <div class="table-search">
+                    <i class="fa fa-search"></i>
+                    <input
+                      type="text"
+                      id="custRptSearch"
+                      placeholder="Search customers…"
+                      oninput="renderCustomerReport()"
+                    />
+                  </div>
+                </div>
+                <div style="overflow-x: auto">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Customer</th>
+                        <th>Location</th>
+                        <th>Purchases</th>
+                        <th>Total Spent (GHS)</th>
+                        <th>Avg per Purchase</th>
+                        <th>Tier</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="custRptBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- ════════════════════════════════════════════
+       INVENTORY REPORT
+  ════════════════════════════════════════════ -->
+            <div id="rpt-inventory" style="display: none">
+              <div class="rpt-kpi-row" id="invKpiRow"></div>
+
+              <div class="rpt-charts-row">
+                <div class="chart-card" style="flex: 2">
+                  <div class="chart-title">Stock by Karat</div>
+                  <div class="chart-sub">
+                    Current estimated inventory (grams)
+                  </div>
+                  <div class="chart-wrap" style="height: 240px">
+                    <canvas id="invKaratBarChart"></canvas>
+                  </div>
+                </div>
+                <div class="chart-card" style="flex: 1">
+                  <div class="chart-title">Stock Distribution</div>
+                  <div class="chart-sub">Share by karat type</div>
+                  <div class="chart-wrap" style="height: 240px">
+                    <canvas id="invDonutChart"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-card" style="margin-top: 20px">
+                <div class="table-toolbar">
+                  <div class="table-title">Inventory by Karat</div>
+                </div>
+                <div style="overflow-x: auto">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Karat</th>
+                        <th>Purity</th>
+                        <th>Bought (g)</th>
+                        <th>Sold (g)</th>
+                        <th>Net Stock (g)</th>
+                        <th>Value (GHS)</th>
+                        <th>Value (USD)</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="invTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="table-card" style="margin-top: 20px">
+                <div class="table-toolbar">
+                  <div class="table-title">Recent Stock Movements</div>
+                </div>
+                <div style="overflow-x: auto">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Karat</th>
+                        <th>Movement</th>
+                        <th>Weight (g)</th>
+                        <th>Customer</th>
+                        <th>Running Stock (g)</th>
+                      </tr>
+                    </thead>
+                    <tbody id="invMovementBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- ════════════════════════════════════════════
+       PROFIT & LOSS
+  ════════════════════════════════════════════ -->
+            <div id="rpt-pnl" style="display: none">
+              <div class="rpt-filter-bar">
+                <div class="rpt-filter-group">
+                  <label class="rpt-filter-label">Period</label>
+                  <select
+                    class="rpt-filter-select"
+                    id="pnlPeriod"
+                    onchange="renderPnlReport()"
+                  >
+                    <option value="month">This Month</option>
+                    <option value="quarter">This Quarter</option>
+                    <option value="year" selected>This Year (2024)</option>
+                  </select>
+                </div>
+                <div class="rpt-filter-group">
+                  <label class="rpt-filter-label">Cost Model</label>
+                  <select
+                    class="rpt-filter-select"
+                    id="pnlCostModel"
+                    onchange="renderPnlReport()"
+                  >
+                    <option value="spot">Spot Price (FIFO)</option>
+                    <option value="fixed" selected>Fixed Margin (3%)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="rpt-kpi-row" id="pnlKpiRow"></div>
+
+              <div class="rpt-charts-row">
+                <div class="chart-card" style="flex: 2">
+                  <div class="chart-title">Revenue vs Cost vs Profit</div>
+                  <div class="chart-sub">Monthly breakdown (GHS)</div>
+                  <div class="chart-wrap" style="height: 260px">
+                    <canvas id="pnlBarChart"></canvas>
+                  </div>
+                </div>
+                <div class="chart-card" style="flex: 1">
+                  <div class="chart-title">Profit Margin</div>
+                  <div class="chart-sub">Monthly margin % trend</div>
+                  <div class="chart-wrap" style="height: 260px">
+                    <canvas id="pnlMarginChart"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-card" style="margin-top: 20px">
+                <div class="table-toolbar">
+                  <div class="table-title">Monthly P&amp;L Summary</div>
+                </div>
+                <div style="overflow-x: auto">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Month</th>
+                        <th>Revenue (GHS)</th>
+                        <th>Cost (GHS)</th>
+                        <th>Gross Profit (GHS)</th>
+                        <th>Margin %</th>
+                        <th>Transactions</th>
+                        <th>Volume (g)</th>
+                      </tr>
+                    </thead>
+                    <tbody id="pnlTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- ════════════════════════════════════════════
+       TRANSACTION LOG
+  ════════════════════════════════════════════ -->
+            <div id="rpt-txlog" style="display: none">
+              <div class="rpt-filter-bar">
+                <div class="rpt-filter-group">
+                  <label class="rpt-filter-label">From</label>
+                  <input
+                    type="date"
+                    class="rpt-filter-select"
+                    id="txlogFrom"
+                    onchange="renderTxLog()"
+                  />
+                </div>
+                <div class="rpt-filter-group">
+                  <label class="rpt-filter-label">To</label>
+                  <input
+                    type="date"
+                    class="rpt-filter-select"
+                    id="txlogTo"
+                    onchange="renderTxLog()"
+                  />
+                </div>
+                <div class="rpt-filter-group">
+                  <label class="rpt-filter-label">Type</label>
+                  <select
+                    class="rpt-filter-select"
+                    id="txlogType"
+                    onchange="renderTxLog()"
+                  >
+                    <option value="all" selected>All</option>
+                    <option value="Buy">Buy</option>
+                    <option value="Sell">Sell</option>
+                  </select>
+                </div>
+                <div class="rpt-filter-group">
+                  <label class="rpt-filter-label">Status</label>
+                  <select
+                    class="rpt-filter-select"
+                    id="txlogStatus"
+                    onchange="renderTxLog()"
+                  >
+                    <option value="all" selected>All</option>
+                    <option value="Complete">Complete</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Processing">Processing</option>
+                  </select>
+                </div>
+                <div class="rpt-filter-group">
+                  <label class="rpt-filter-label">Karat</label>
+                  <select
+                    class="rpt-filter-select"
+                    id="txlogKarat"
+                    onchange="renderTxLog()"
+                  >
+                    <option value="all" selected>All</option>
+                    <option value="24K">24K</option>
+                    <option value="22K">22K</option>
+                    <option value="21K">21K</option>
+                    <option value="18K">18K</option>
+                    <option value="14K">14K</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="rpt-kpi-row" id="txlogKpiRow"></div>
+
+              <div class="table-card">
+                <div class="table-toolbar">
+                  <div class="table-toolbar-left">
+                    <div class="table-title">Full Transaction Log</div>
+                    <span class="table-count" id="txlogCount"></span>
+                  </div>
+                  <div class="table-search">
+                    <i class="fa fa-search"></i>
+                    <input
+                      type="text"
+                      id="txlogSearch"
+                      placeholder="Search by customer, ID…"
+                      oninput="renderTxLog()"
+                    />
+                  </div>
+                </div>
+                <div style="overflow-x: auto">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Ref #</th>
+                        <th>Date</th>
+                        <th>Customer</th>
+                        <th>Type</th>
+                        <th>Karat</th>
+                        <th>Weight (g)</th>
+                        <th>Unit Price</th>
+                        <th>Total (GHS)</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="txlogBody"></tbody>
+                  </table>
+                </div>
+                <div class="table-footer">
+                  <div class="table-info" id="txlogInfo"></div>
+                  <button
+                    class="load-more-btn"
+                    id="txlogLoadMore"
+                    onclick="txlogLoadMore()"
+                  >
+                    Load More
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ════════════════════════════════════════════
+       PRICE HISTORY
+  ════════════════════════════════════════════ -->
+            <div id="rpt-pricehistory" style="display: none">
+              <div class="rpt-filter-bar">
+                <div class="rpt-filter-group">
+                  <label class="rpt-filter-label">Range</label>
+                  <select
+                    class="rpt-filter-select"
+                    id="phRange"
+                    onchange="renderPriceHistory()"
+                  >
+                    <option value="1m">1 Month</option>
+                    <option value="3m">3 Months</option>
+                    <option value="6m" selected>6 Months</option>
+                    <option value="1y">1 Year</option>
+                  </select>
+                </div>
+                <div class="rpt-filter-group">
+                  <label class="rpt-filter-label">Currency</label>
+                  <select
+                    class="rpt-filter-select"
+                    id="phCurrency"
+                    onchange="renderPriceHistory()"
+                  >
+                    <option value="USD" selected>USD (per oz)</option>
+                    <option value="GHS">GHS (per gram)</option>
+                  </select>
+                </div>
+                <div class="rpt-filter-group">
+                  <label class="rpt-filter-label">Karat overlay</label>
+                  <select
+                    class="rpt-filter-select"
+                    id="phKarat"
+                    onchange="renderPriceHistory()"
+                  >
+                    <option value="22" selected>22K avg tx price</option>
+                    <option value="24">24K avg tx price</option>
+                    <option value="18">18K avg tx price</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="rpt-kpi-row" id="phKpiRow"></div>
+
+              <div class="chart-card">
+                <div class="chart-title">Gold Spot Price History</div>
+                <div class="chart-sub" id="phChartSub">
+                  XAU/USD — last 6 months with your 22K transaction prices
+                </div>
+                <div class="chart-wrap" style="height: 300px">
+                  <canvas id="phMainChart"></canvas>
+                </div>
+              </div>
+
+              <div class="rpt-charts-row" style="margin-top: 20px">
+                <div class="chart-card" style="flex: 1">
+                  <div class="chart-title">Monthly Average Price</div>
+                  <div class="chart-sub">Spot price monthly avg (USD/oz)</div>
+                  <div class="chart-wrap" style="height: 220px">
+                    <canvas id="phMonthlyAvgChart"></canvas>
+                  </div>
+                </div>
+                <div class="chart-card" style="flex: 1">
+                  <div class="chart-title">Price vs Your Trades</div>
+                  <div class="chart-sub">
+                    Spot vs your avg transaction price (GHS/g)
+                  </div>
+                  <div class="chart-wrap" style="height: 220px">
+                    <canvas id="phVsTxChart"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-card" style="margin-top: 20px">
+                <div class="table-toolbar">
+                  <div class="table-title">Historical Price Table</div>
+                </div>
+                <div style="overflow-x: auto">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Month</th>
+                        <th>Open (USD/oz)</th>
+                        <th>High</th>
+                        <th>Low</th>
+                        <th>Close</th>
+                        <th>Change</th>
+                        <th>Avg GHS/g (22K)</th>
+                        <th>Your Avg Price</th>
+                      </tr>
+                    </thead>
+                    <tbody id="phTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ======================== RECEIPTS ======================== -->
+          <div class="page" id="page-receipts">
+            <div class="page-header">
+              <div>
+                <div class="page-title">Receipts</div>
+                <div class="page-subtitle">
+                  View and print transaction receipts
+                </div>
+              </div>
+              <button class="btn btn-outline" onclick="printSelected()">
+                <i class="fa fa-print"></i> Print Selected
+              </button>
+            </div>
+            <div class="table-card">
+              <div class="table-toolbar">
+                <div class="table-title">Recent Receipts</div>
+                <div style="display: flex; gap: 8px; align-items: center">
+                  <div class="table-search">
+                    <i class="fa fa-search"></i>
+                    <input
+                      type="text"
+                      id="receiptSearch"
+                      placeholder="Search receipts…"
+                    />
+                  </div>
+                  <button
+                    class="btn btn-outline"
+                    onclick="exportToExcel('receipts')"
+                    style="height: 34px; padding: 0 14px; font-size: 12px"
+                  >
+                    <i class="fa fa-file-excel"></i> Export
+                  </button>
+                </div>
+              </div>
+              <div style="overflow-x: auto">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Receipt No.</th>
+                      <th>Date</th>
+                      <th>Customer</th>
+                      <th>Type</th>
+                      <th>Amount (GHS)</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="receiptBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </main>
+
+        <!-- ======================== PROFILE ======================== -->
+        <div class="page" id="page-profile">
+          <div class="page-header">
+            <div>
+              <div class="page-title">My <span>Profile</span></div>
+              <div class="page-subtitle">
+                Manage your personal information and account details
+              </div>
+            </div>
+            <button
+              class="btn btn-gold"
+              id="saveProfileBtn"
+              onclick="saveProfile()"
+            >
+              <span class="btn-text"
+                ><i class="fa fa-floppy-disk"></i> Save Changes</span
+              >
+              <div class="spinner"></div>
+            </button>
+          </div>
+
+          <div class="profile-layout">
+            <!-- LEFT: Avatar card -->
+            <div class="profile-sidebar-card">
+              <form class="profile-avatar-wrap" enctype="multipart/form">
+                <div class="profile-avatar" id="profileAvatarDisplay">
+                  <img
+                    src="./assets/images/avatar1.jpg"
+                    id="profileAvatarImg"
+                    alt="Profile photo"
+                  />
+                  <div
+                    class="profile-avatar-overlay"
+                    onclick="document.getElementById('avatarFileInput').click()"
+                  >
+                    <i class="fa fa-camera"></i>
+                    <span>Change photo</span>
+                  </div>
+                </div>
+                <input
+                  type="file"
+                  id="avatarFileInput"
+                  accept="image/*"
+                  style="display: none"
+                  onchange="previewAvatar(this)"
+                />
+                <div class="profile-name" id="profileDisplayName">
+                  Ama Owusu
+                </div>
+                <div class="profile-role-badge">
+                  <i class="fa fa-shield-halved"></i> Gold Trader — Admin
+                </div>
+              </form>
+
+              <div class="profile-stat-row">
+                <div class="profile-stat">
+                  <div class="profile-stat-val">120</div>
+                  <div class="profile-stat-label">Transactions</div>
+                </div>
+                <div class="profile-stat-divider"></div>
+                <div class="profile-stat">
+                  <div class="profile-stat-val">GHS 1.2M</div>
+                  <div class="profile-stat-label">Total Volume</div>
+                </div>
+                <div class="profile-stat-divider"></div>
+                <div class="profile-stat">
+                  <div class="profile-stat-val">80</div>
+                  <div class="profile-stat-label">Customers</div>
+                </div>
+              </div>
+
+              <div class="profile-meta-list">
+                <div class="profile-meta-item">
+                  <i class="fa fa-envelope"></i>
+                  <span>ama.owusu@goldtrack.gh</span>
+                </div>
+                <div class="profile-meta-item">
+                  <i class="fa fa-phone"></i>
+                  <span>+233 24 456 7890</span>
+                </div>
+                <div class="profile-meta-item">
+                  <i class="fa fa-location-dot"></i>
+                  <span>Accra, Ghana</span>
+                </div>
+                <div class="profile-meta-item">
+                  <i class="fa fa-calendar-check"></i>
+                  <span>Member since Jan 2023</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT: Form cards -->
+            <div class="profile-main">
+              <!-- Personal Information -->
+              <div class="profile-card">
+                <div class="profile-card-header">
+                  <div class="profile-card-icon">
+                    <i class="fa fa-user"></i>
+                  </div>
+                  <div>
+                    <div class="profile-card-title">Personal Information</div>
+                    <div class="profile-card-sub">
+                      Update your name and contact details
+                    </div>
+                  </div>
+                </div>
+                <div class="profile-form-grid">
+                  <div class="profile-field">
+                    <label class="profile-label">First Name</label>
+                    <div class="profile-input-wrap">
+                      <i class="fa fa-user"></i>
+                      <input
+                        type="text"
+                        class="profile-input"
+                        id="pfFirstName"
+                        value="Ama"
+                      />
+                    </div>
+                  </div>
+                  <div class="profile-field">
+                    <label class="profile-label">Last Name</label>
+                    <div class="profile-input-wrap">
+                      <i class="fa fa-user"></i>
+                      <input
+                        type="text"
+                        class="profile-input"
+                        id="pfLastName"
+                        value="Owusu"
+                      />
+                    </div>
+                  </div>
+                  <div class="profile-field">
+                    <label class="profile-label">Email Address</label>
+                    <div class="profile-input-wrap">
+                      <i class="fa fa-envelope"></i>
+                      <input
+                        type="email"
+                        class="profile-input"
+                        id="pfEmail"
+                        value="ama.owusu@goldtrack.gh"
+                      />
+                    </div>
+                  </div>
+                  <div class="profile-field">
+                    <label class="profile-label">Phone Number</label>
+                    <div class="profile-input-wrap">
+                      <i class="fa fa-phone"></i>
+                      <input
+                        type="tel"
+                        class="profile-input"
+                        id="pfPhone"
+                        value="+233 24 456 7890"
+                      />
+                    </div>
+                  </div>
+                  <div class="profile-field">
+                    <label class="profile-label">Location</label>
+                    <div class="profile-input-wrap">
+                      <i class="fa fa-location-dot"></i>
+                      <select
+                        class="profile-input profile-select"
+                        id="pfLocation"
+                      >
+                        <option selected>Accra</option>
+                        <option>Kumasi</option>
+                        <option>Takoradi</option>
+                        <option>Tamale</option>
+                        <option>Sunyani</option>
+                        <option>Ho</option>
+                        <option>Koforidua</option>
+                        <option>Cape Coast</option>
+                        <option>Techiman</option>
+                        <option>Obuasi</option>
+                        <option>Tema</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="profile-field">
+                    <label class="profile-label">Role</label>
+                    <div class="profile-input-wrap">
+                      <i class="fa fa-briefcase"></i>
+                      <input
+                        type="text"
+                        class="profile-input"
+                        value="Gold Trader — Admin"
+                        disabled
+                        style="opacity: 0.6; cursor: not-allowed"
+                      />
+                    </div>
+                  </div>
+                  <div class="profile-field full">
+                    <label class="profile-label"
+                      >Bio
+                      <span
+                        style="
+                          font-weight: 400;
+                          text-transform: none;
+                          letter-spacing: 0;
+                          color: var(--text3);
+                          font-size: 10px;
+                        "
+                        >(optional)</span
+                      ></label
+                    >
+                    <div class="profile-input-wrap">
+                      <i
+                        class="fa fa-align-left"
+                        style="top: 12px; transform: none"
+                      ></i>
+                      <textarea
+                        class="profile-input profile-textarea"
+                        id="pfBio"
+                        rows="3"
+                        placeholder="Tell your team a little about yourself…"
+                      >
+ Experienced gold trader based in Accra with over 5 years in the precious metals industry.</textarea
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Change Password -->
+              <div class="profile-card">
+                <div class="profile-card-header">
+                  <div class="profile-card-icon">
+                    <i class="fa fa-lock"></i>
+                  </div>
+                  <div>
+                    <div class="profile-card-title">Change Password</div>
+                    <div class="profile-card-sub">
+                      Keep your account secure with a strong password
+                    </div>
+                  </div>
+                </div>
+                <div class="profile-form-grid">
+                  <div class="profile-field full">
+                    <label class="profile-label">Current Password</label>
+                    <div class="profile-input-wrap">
+                      <i class="fa fa-lock"></i>
+                      <input
+                        type="password"
+                        class="profile-input"
+                        id="pfCurrentPw"
+                        placeholder="Enter current password"
+                      />
+                      <button
+                        class="profile-eye-btn"
+                        type="button"
+                        onclick="toggleProfilePw('pfCurrentPw', this)"
+                      >
+                        <i class="fa fa-eye"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="profile-field">
+                    <label class="profile-label">New Password</label>
+                    <div class="profile-input-wrap">
+                      <i class="fa fa-key"></i>
+                      <input
+                        type="password"
+                        class="profile-input"
+                        id="pfNewPw"
+                        placeholder="Min. 8 characters"
+                      />
+                      <button
+                        class="profile-eye-btn"
+                        type="button"
+                        onclick="toggleProfilePw('pfNewPw', this)"
+                      >
+                        <i class="fa fa-eye"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="profile-field">
+                    <label class="profile-label">Confirm New Password</label>
+                    <div class="profile-input-wrap">
+                      <i class="fa fa-key"></i>
+                      <input
+                        type="password"
+                        class="profile-input"
+                        id="pfConfirmPw"
+                        placeholder="Repeat new password"
+                      />
+                      <button
+                        class="profile-eye-btn"
+                        type="button"
+                        onclick="toggleProfilePw('pfConfirmPw', this)"
+                      >
+                        <i class="fa fa-eye"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="profile-pw-alert"
+                  id="pfPwAlert"
+                  style="display: none"
+                ></div>
+                <button
+                  class="btn btn-outline"
+                  style="margin-top: 4px; width: fit-content"
+                  onclick="changePassword()"
+                >
+                  <i class="fa fa-shield-halved"></i> Update Password
+                </button>
+              </div>
+
+              <!-- Activity Log -->
+              <div class="profile-card">
+                <div class="profile-card-header">
+                  <div class="profile-card-icon">
+                    <i class="fa fa-clock-rotate-left"></i>
+                  </div>
+                  <div>
+                    <div class="profile-card-title">Recent Activity</div>
+                    <div class="profile-card-sub">
+                      Your last 5 account actions
+                    </div>
+                  </div>
+                </div>
+                <div class="profile-activity-list">
+                  <div class="profile-activity-item">
+                    <div class="pact-icon gold">
+                      <i class="fa fa-arrow-right-arrow-left"></i>
+                    </div>
+                    <div class="pact-body">
+                      <div class="pact-title">
+                        New transaction recorded — <strong>Kofi Asante</strong>
+                      </div>
+                      <div class="pact-time">Today, 9:14 AM</div>
+                    </div>
+                  </div>
+                  <div class="profile-activity-item">
+                    <div class="pact-icon blue">
+                      <i class="fa fa-user-plus"></i>
+                    </div>
+                    <div class="pact-body">
+                      <div class="pact-title">
+                        Added customer — <strong>Ama Osei</strong>
+                      </div>
+                      <div class="pact-time">Today, 8:52 AM</div>
+                    </div>
+                  </div>
+                  <div class="profile-activity-item">
+                    <div class="pact-icon green">
+                      <i class="fa fa-file-export"></i>
+                    </div>
+                    <div class="pact-body">
+                      <div class="pact-title">
+                        Exported transactions to Excel
+                      </div>
+                      <div class="pact-time">Yesterday, 4:30 PM</div>
+                    </div>
+                  </div>
+                  <div class="profile-activity-item">
+                    <div class="pact-icon red">
+                      <i class="fa fa-right-to-bracket"></i>
+                    </div>
+                    <div class="pact-body">
+                      <div class="pact-title">Logged in from Accra, Ghana</div>
+                      <div class="pact-time">Yesterday, 7:05 AM</div>
+                    </div>
+                  </div>
+                  <div class="profile-activity-item">
+                    <div class="pact-icon gold">
+                      <i class="fa fa-print"></i>
+                    </div>
+                    <div class="pact-body">
+                      <div class="pact-title">
+                        Printed receipt <strong>RCP-0012</strong>
+                      </div>
+                      <div class="pact-time">12 Apr 2026, 2:18 PM</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======================== SETTINGS ======================== -->
+        <div class="page" id="page-settings">
+          <div class="page-header">
+            <div>
+              <div class="page-title">Settings</div>
+              <div class="page-subtitle">
+                Configure your GoldTrack preferences
+              </div>
+            </div>
+            <button class="btn btn-gold" onclick="saveSettings()">
+              <span class="btn-text"
+                ><i class="fa fa-floppy-disk"></i> Save Settings</span
+              >
+              <div class="spinner"></div>
+            </button>
+          </div>
+
+          <div class="settings-layout">
+            <!-- Settings nav tabs -->
+            <div class="settings-tabs">
+              <div
+                class="settings-tab active"
+                data-stab="general"
+                onclick="switchSettingsTab('general')"
+              >
+                <i class="fa fa-sliders"></i> General
+              </div>
+              <div
+                class="settings-tab"
+                data-stab="appearance"
+                onclick="switchSettingsTab('appearance')"
+              >
+                <i class="fa fa-palette"></i> Appearance
+              </div>
+              <div
+                class="settings-tab"
+                data-stab="notifications"
+                onclick="switchSettingsTab('notifications')"
+              >
+                <i class="fa fa-bell"></i> Notifications
+              </div>
+              <div
+                class="settings-tab"
+                data-stab="trading"
+                onclick="switchSettingsTab('trading')"
+              >
+                <i class="fa fa-coins"></i> Trading
+              </div>
+              <div
+                class="settings-tab"
+                data-stab="security"
+                onclick="switchSettingsTab('security')"
+              >
+                <i class="fa fa-shield-halved"></i> Security
+              </div>
+            </div>
+
+            <!-- Settings panels -->
+            <div class="settings-panels">
+              <!-- GENERAL -->
+              <div class="settings-panel active" id="stab-general">
+                <div class="profile-card">
+                  <div class="profile-card-header">
+                    <div class="profile-card-icon">
+                      <i class="fa fa-building"></i>
+                    </div>
+                    <div>
+                      <div class="profile-card-title">Business Information</div>
+                      <div class="profile-card-sub">
+                        Details shown on receipts and reports
+                      </div>
+                    </div>
+                  </div>
+                  <div class="profile-form-grid">
+                    <div class="profile-field full">
+                      <label class="profile-label">Business Name</label>
+                      <div class="profile-input-wrap">
+                        <i class="fa fa-building"></i>
+                        <input
+                          type="text"
+                          class="profile-input"
+                          value="GoldTrack Enterprise"
+                        />
+                      </div>
+                    </div>
+                    <div class="profile-field">
+                      <label class="profile-label">Business Phone</label>
+                      <div class="profile-input-wrap">
+                        <i class="fa fa-phone"></i>
+                        <input
+                          type="tel"
+                          class="profile-input"
+                          value="+233 30 200 0000"
+                        />
+                      </div>
+                    </div>
+                    <div class="profile-field">
+                      <label class="profile-label">Business Email</label>
+                      <div class="profile-input-wrap">
+                        <i class="fa fa-envelope"></i>
+                        <input
+                          type="email"
+                          class="profile-input"
+                          value="info@goldtrack.gh"
+                        />
+                      </div>
+                    </div>
+                    <div class="profile-field">
+                      <label class="profile-label">Location / Branch</label>
+                      <div class="profile-input-wrap">
+                        <i class="fa fa-location-dot"></i>
+                        <select class="profile-input profile-select">
+                          <option selected>Accra — Main Branch</option>
+                          <option>Kumasi — North</option>
+                          <option>Takoradi — West</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="profile-field">
+                      <label class="profile-label">Default Currency</label>
+                      <div class="profile-input-wrap">
+                        <i class="fa fa-money-bill-wave"></i>
+                        <select
+                          class="profile-input profile-select"
+                          id="stCurrency"
+                        >
+                          <option value="GHS" selected>GHS — Ghana Cedi</option>
+                          <option value="USD">USD — US Dollar</option>
+                          <option value="EUR">EUR — Euro</option>
+                          <option value="GBP">GBP — British Pound</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="profile-field full">
+                      <label class="profile-label">Business Address</label>
+                      <div class="profile-input-wrap">
+                        <i
+                          class="fa fa-map-pin"
+                          style="top: 12px; transform: none"
+                        ></i>
+                        <textarea
+                          class="profile-input profile-textarea"
+                          rows="2"
+                        >
+ 14 Ring Road Central, Accra, Ghana</textarea
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="profile-card">
+                  <div class="profile-card-header">
+                    <div class="profile-card-icon">
+                      <i class="fa fa-receipt"></i>
+                    </div>
+                    <div>
+                      <div class="profile-card-title">Receipt & Invoice</div>
+                      <div class="profile-card-sub">
+                        Customise how receipts are generated
+                      </div>
+                    </div>
+                  </div>
+                  <div class="profile-form-grid">
+                    <div class="profile-field">
+                      <label class="profile-label">Receipt Prefix</label>
+                      <div class="profile-input-wrap">
+                        <i class="fa fa-hashtag"></i>
+                        <input type="text" class="profile-input" value="RCP-" />
+                      </div>
+                    </div>
+                    <div class="profile-field">
+                      <label class="profile-label">Starting Number</label>
+                      <div class="profile-input-wrap">
+                        <i class="fa fa-list-ol"></i>
+                        <input
+                          type="number"
+                          class="profile-input"
+                          value="1001"
+                          min="1"
+                        />
+                      </div>
+                    </div>
+                    <div class="profile-field full">
+                      <label class="profile-label">Receipt Footer Note</label>
+                      <div class="profile-input-wrap">
+                        <i
+                          class="fa fa-align-left"
+                          style="top: 12px; transform: none"
+                        ></i>
+                        <textarea
+                          class="profile-input profile-textarea"
+                          rows="2"
+                          placeholder="e.g. Thank you for your business…"
+                        >
+ 
+                          Thank you for choosing GoldTrack. All transactions are final. For queries call +233 30 200 0000.
+                        </textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="settings-toggle-row">
+                    <div>
+                      <div class="stg-toggle-label">
+                        Auto-print receipt after transaction
+                      </div>
+                      <div class="stg-toggle-sub">
+                        Automatically open print dialog when a transaction is
+                        saved
+                      </div>
+                    </div>
+                    <label class="toggle-switch">
+                      <input type="checkbox" id="autoPrintToggle" />
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- APPEARANCE -->
+              <div class="settings-panel" id="stab-appearance">
+                <div class="profile-card">
+                  <div class="profile-card-header">
+                    <div class="profile-card-icon">
+                      <i class="fa fa-palette"></i>
+                    </div>
+                    <div>
+                      <div class="profile-card-title">Appearance</div>
+                      <div class="profile-card-sub">
+                        Customise the look and feel of GoldTrack
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-section-title">Theme</div>
+                  <div class="theme-selector">
+                    <div
+                      class="theme-option active"
+                      id="themeOptLight"
+                      onclick="setThemeOption('light')"
+                    >
+                      <div class="theme-preview light-preview">
+                        <div class="tp-nav"></div>
+                        <div class="tp-body">
+                          <div class="tp-sidebar"></div>
+                          <div class="tp-main">
+                            <div class="tp-card"></div>
+                            <div class="tp-card"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="theme-option-label">
+                        <i class="fa fa-sun"></i> Light
+                      </div>
+                    </div>
+                    <div
+                      class="theme-option"
+                      id="themeOptDark"
+                      onclick="setThemeOption('dark')"
+                    >
+                      <div class="theme-preview dark-preview">
+                        <div class="tp-nav"></div>
+                        <div class="tp-body">
+                          <div class="tp-sidebar"></div>
+                          <div class="tp-main">
+                            <div class="tp-card"></div>
+                            <div class="tp-card"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="theme-option-label">
+                        <i class="fa fa-moon"></i> Dark
+                      </div>
+                    </div>
+                    <div
+                      class="theme-option"
+                      id="themeOptSystem"
+                      onclick="setThemeOption('system')"
+                    >
+                      <div class="theme-preview system-preview">
+                        <div class="tp-nav"></div>
+                        <div class="tp-body">
+                          <div class="tp-sidebar"></div>
+                          <div class="tp-main">
+                            <div class="tp-card"></div>
+                            <div class="tp-card"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="theme-option-label">
+                        <i class="fa fa-circle-half-stroke"></i> System
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-section-title" style="margin-top: 24px">
+                    Accent Colour
+                  </div>
+                  <div class="accent-row">
+                    <div
+                      class="accent-swatch active"
+                      style="background: #c9a84c"
+                      data-color="#c9a84c"
+                      onclick="setAccent(this)"
+                      title="Gold (default)"
+                    ></div>
+                    <div
+                      class="accent-swatch"
+                      style="background: #2471a3"
+                      data-color="#2471a3"
+                      onclick="setAccent(this)"
+                      title="Ocean Blue"
+                    ></div>
+                    <div
+                      class="accent-swatch"
+                      style="background: #1e8449"
+                      data-color="#1e8449"
+                      onclick="setAccent(this)"
+                      title="Forest Green"
+                    ></div>
+                    <div
+                      class="accent-swatch"
+                      style="background: #884ea0"
+                      data-color="#884ea0"
+                      onclick="setAccent(this)"
+                      title="Royal Purple"
+                    ></div>
+                    <div
+                      class="accent-swatch"
+                      style="background: #cb4335"
+                      data-color="#cb4335"
+                      onclick="setAccent(this)"
+                      title="Ruby Red"
+                    ></div>
+                    <div
+                      class="accent-swatch"
+                      style="background: #d35400"
+                      data-color="#d35400"
+                      onclick="setAccent(this)"
+                      title="Ember Orange"
+                    ></div>
+                  </div>
+
+                  <div class="settings-section-title" style="margin-top: 24px">
+                    Display
+                  </div>
+                  <div class="settings-toggle-row">
+                    <div>
+                      <div class="stg-toggle-label">Compact table rows</div>
+                      <div class="stg-toggle-sub">
+                        Reduce row height in tables for more data density
+                      </div>
+                    </div>
+                    <label class="toggle-switch">
+                      <input type="checkbox" id="compactRowsToggle" />
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </div>
+                  <div class="settings-toggle-row">
+                    <div>
+                      <div class="stg-toggle-label">
+                        Animate page transitions
+                      </div>
+                      <div class="stg-toggle-sub">
+                        Smooth fade-up when switching between pages
+                      </div>
+                    </div>
+                    <label class="toggle-switch">
+                      <input type="checkbox" id="animationsToggle" checked />
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- NOTIFICATIONS -->
+              <div class="settings-panel" id="stab-notifications">
+                <div class="profile-card">
+                  <div class="profile-card-header">
+                    <div class="profile-card-icon">
+                      <i class="fa fa-bell"></i>
+                    </div>
+                    <div>
+                      <div class="profile-card-title">
+                        Notification Preferences
+                      </div>
+                      <div class="profile-card-sub">
+                        Choose what alerts you receive
+                      </div>
+                    </div>
+                  </div>
+                  <div class="notif-group-title">Transactions</div>
+                  <div class="settings-toggle-row">
+                    <div>
+                      <div class="stg-toggle-label">New transaction added</div>
+                      <div class="stg-toggle-sub">
+                        Alert when any transaction is saved
+                      </div>
+                    </div>
+                    <label class="toggle-switch"
+                      ><input type="checkbox" checked /><span
+                        class="toggle-slider"
+                      ></span
+                    ></label>
+                  </div>
+                  <div class="settings-toggle-row">
+                    <div>
+                      <div class="stg-toggle-label">
+                        Large transaction alert
+                      </div>
+                      <div class="stg-toggle-sub">
+                        Notify when a transaction exceeds GHS 50,000
+                      </div>
+                    </div>
+                    <label class="toggle-switch"
+                      ><input type="checkbox" checked /><span
+                        class="toggle-slider"
+                      ></span
+                    ></label>
+                  </div>
+                  <div class="settings-toggle-row">
+                    <div>
+                      <div class="stg-toggle-label">
+                        Pending transactions reminder
+                      </div>
+                      <div class="stg-toggle-sub">
+                        Daily reminder for unresolved pending items
+                      </div>
+                    </div>
+                    <label class="toggle-switch"
+                      ><input type="checkbox" /><span
+                        class="toggle-slider"
+                      ></span
+                    ></label>
+                  </div>
+                  <div class="notif-group-title">Market</div>
+                  <div class="settings-toggle-row">
+                    <div>
+                      <div class="stg-toggle-label">Gold price alerts</div>
+                      <div class="stg-toggle-sub">
+                        Notify when XAU/USD moves more than 1%
+                      </div>
+                    </div>
+                    <label class="toggle-switch"
+                      ><input type="checkbox" checked /><span
+                        class="toggle-slider"
+                      ></span
+                    ></label>
+                  </div>
+                  <div class="settings-toggle-row">
+                    <div>
+                      <div class="stg-toggle-label">Exchange rate alerts</div>
+                      <div class="stg-toggle-sub">
+                        Notify on significant USD/GHS movements
+                      </div>
+                    </div>
+                    <label class="toggle-switch"
+                      ><input type="checkbox" /><span
+                        class="toggle-slider"
+                      ></span
+                    ></label>
+                  </div>
+                  <div class="notif-group-title">Reports & System</div>
+                  <div class="settings-toggle-row">
+                    <div>
+                      <div class="stg-toggle-label">Monthly report ready</div>
+                      <div class="stg-toggle-sub">
+                        Notify when the monthly report is generated
+                      </div>
+                    </div>
+                    <label class="toggle-switch"
+                      ><input type="checkbox" checked /><span
+                        class="toggle-slider"
+                      ></span
+                    ></label>
+                  </div>
+                  <div class="settings-toggle-row">
+                    <div>
+                      <div class="stg-toggle-label">System updates</div>
+                      <div class="stg-toggle-sub">
+                        Inform about new GoldTrack features and fixes
+                      </div>
+                    </div>
+                    <label class="toggle-switch"
+                      ><input type="checkbox" checked /><span
+                        class="toggle-slider"
+                      ></span
+                    ></label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TRADING -->
+              <div class="settings-panel" id="stab-trading">
+                <div class="profile-card">
+                  <div class="profile-card-header">
+                    <div class="profile-card-icon">
+                      <i class="fa fa-coins"></i>
+                    </div>
+                    <div>
+                      <div class="profile-card-title">Trading Defaults</div>
+                      <div class="profile-card-sub">
+                        Pre-fill values used when recording transactions
+                      </div>
+                    </div>
+                  </div>
+                  <div class="profile-form-grid">
+                    <div class="profile-field">
+                      <label class="profile-label">Default Karat</label>
+                      <div class="profile-input-wrap">
+                        <i class="fa fa-star-half-stroke"></i>
+                        <select class="profile-input profile-select">
+                          <option>24K — 99.9% pure</option>
+                          <option selected>22K — 91.7% pure</option>
+                          <option>21K — 87.5% pure</option>
+                          <option>18K — 75.0% pure</option>
+                          <option>14K — 58.3% pure</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="profile-field">
+                      <label class="profile-label"
+                        >Default Transaction Type</label
+                      >
+                      <div class="profile-input-wrap">
+                        <i class="fa fa-arrow-right-arrow-left"></i>
+                        <select class="profile-input profile-select">
+                          <option selected>Buy</option>
+                          <option>Sell</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="profile-field">
+                      <label class="profile-label"
+                        >Default Margin / Markup (%)</label
+                      >
+                      <div class="profile-input-wrap">
+                        <i class="fa fa-percent"></i>
+                        <input
+                          type="number"
+                          class="profile-input"
+                          value="3"
+                          min="0"
+                          max="50"
+                          step="0.1"
+                        />
+                      </div>
+                    </div>
+                    <div class="profile-field">
+                      <label class="profile-label">Weight Unit</label>
+                      <div class="profile-input-wrap">
+                        <i class="fa fa-weight-hanging"></i>
+                        <select class="profile-input profile-select">
+                          <option selected>Grams (g)</option>
+                          <option>Troy Ounces (oz)</option>
+                          <option>Kilograms (kg)</option>
+                          <option>Tola</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="settings-toggle-row">
+                    <div>
+                      <div class="stg-toggle-label">
+                        Auto-fill price from live spot
+                      </div>
+                      <div class="stg-toggle-sub">
+                        Pre-populate unit price from XAU/USD when opening
+                        transaction modal
+                      </div>
+                    </div>
+                    <label class="toggle-switch"
+                      ><input type="checkbox" checked /><span
+                        class="toggle-slider"
+                      ></span
+                    ></label>
+                  </div>
+                  <div class="settings-toggle-row">
+                    <div>
+                      <div class="stg-toggle-label">
+                        Require customer for every transaction
+                      </div>
+                      <div class="stg-toggle-sub">
+                        Prevent saving a transaction without a linked customer
+                      </div>
+                    </div>
+                    <label class="toggle-switch"
+                      ><input type="checkbox" checked /><span
+                        class="toggle-slider"
+                      ></span
+                    ></label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SECURITY -->
+              <div class="settings-panel" id="stab-security">
+                <div class="profile-card">
+                  <div class="profile-card-header">
+                    <div class="profile-card-icon">
+                      <i class="fa fa-shield-halved"></i>
+                    </div>
+                    <div>
+                      <div class="profile-card-title">Security Settings</div>
+                      <div class="profile-card-sub">
+                        Protect your account and data
+                      </div>
+                    </div>
+                  </div>
+                  <div class="settings-toggle-row">
+                    <div>
+                      <div class="stg-toggle-label">
+                        Two-factor authentication (2FA)
+                      </div>
+                      <div class="stg-toggle-sub">
+                        Add an extra verification step on login
+                      </div>
+                    </div>
+                    <label class="toggle-switch"
+                      ><input type="checkbox" /><span
+                        class="toggle-slider"
+                      ></span
+                    ></label>
+                  </div>
+                  <div class="settings-toggle-row">
+                    <div>
+                      <div class="stg-toggle-label">
+                        Session timeout after inactivity
+                      </div>
+                      <div class="stg-toggle-sub">
+                        Automatically log out after 30 minutes of inactivity
+                      </div>
+                    </div>
+                    <label class="toggle-switch"
+                      ><input type="checkbox" checked /><span
+                        class="toggle-slider"
+                      ></span
+                    ></label>
+                  </div>
+                  <div class="settings-toggle-row">
+                    <div>
+                      <div class="stg-toggle-label">Login activity emails</div>
+                      <div class="stg-toggle-sub">
+                        Send an email when a new login is detected
+                      </div>
+                    </div>
+                    <label class="toggle-switch"
+                      ><input type="checkbox" checked /><span
+                        class="toggle-slider"
+                      ></span
+                    ></label>
+                  </div>
+                </div>
+
+                <div class="profile-card">
+                  <div class="profile-card-header">
+                    <div
+                      class="profile-card-icon"
+                      style="background: var(--danger-bg); color: var(--danger)"
+                    >
+                      <i class="fa fa-triangle-exclamation"></i>
+                    </div>
+                    <div>
+                      <div class="profile-card-title">Danger Zone</div>
+                      <div class="profile-card-sub">
+                        Irreversible actions — proceed with caution
+                      </div>
+                    </div>
+                  </div>
+                  <div class="danger-zone">
+                    <div class="danger-item">
+                      <div>
+                        <div class="danger-item-title">Export all data</div>
+                        <div class="danger-item-sub">
+                          Download a full CSV export of all transactions and
+                          customers
+                        </div>
+                      </div>
+                      <button
+                        class="btn btn-outline"
+                        onclick="exportToExcel('transactions')"
+                      >
+                        <i class="fa fa-file-export"></i> Export
+                      </button>
+                    </div>
+                    <div class="danger-item">
+                      <div>
+                        <div class="danger-item-title">
+                          Clear all transaction data
+                        </div>
+                        <div class="danger-item-sub">
+                          Permanently delete all transaction records. This
+                          cannot be undone.
+                        </div>
+                      </div>
+                      <button
+                        class="btn btn-danger"
+                        onclick="confirmDangerAction('clear-transactions')"
+                      >
+                        <i class="fa fa-trash"></i> Clear
+                      </button>
+                    </div>
+                    <div class="danger-item">
+                      <div>
+                        <div class="danger-item-title">Delete account</div>
+                        <div class="danger-item-sub">
+                          Permanently remove your GoldTrack account and all
+                          associated data
+                        </div>
+                      </div>
+                      <button
+                        class="btn btn-danger"
+                        onclick="confirmDangerAction('delete-account')"
+                      >
+                        <i class="fa fa-user-xmark"></i> Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================== ADD TRANSACTION MODAL ======================== -->
+    <div class="modal-backdrop" id="txModalBackdrop">
+      <div
+        class="modal"
+        id="txModal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="txModalTitle"
+      >
+        <div class="modal-header">
+          <div class="modal-header-left">
+            <div class="modal-icon">
+              <i class="fa fa-arrow-right-arrow-left"></i>
+            </div>
+            <div>
+              <div class="modal-title" id="txModalTitle">New Transaction</div>
+              <div class="modal-subtitle">Record a gold buy or sell</div>
+            </div>
+          </div>
+          <button class="modal-close" id="txModalClose" aria-label="Close">
+            <i class="fa fa-xmark"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="tx-type-toggle">
+            <button class="tx-type-btn active" id="typeBuy" data-type="Buy">
+              <i class="fa fa-arrow-down"></i> Buy<span>From customer</span>
+            </button>
+            <button class="tx-type-btn" id="typeSell" data-type="Sell">
+              <i class="fa fa-arrow-up"></i> Sell<span>To customer</span>
+            </button>
+          </div>
+          <div class="modal-alert" id="txModalAlert" style="display: none">
+            <i class="fa fa-circle-exclamation"></i>
+            <span id="txModalAlertMsg"></span>
+          </div>
+          <div class="modal-grid">
+            <div class="modal-field full">
+              <label class="modal-label" for="txCustomer"
+                >Customer <span class="req">*</span></label
+              >
+              <div class="modal-input-wrap">
+                <i class="fa fa-user"></i
+                ><input
+                  type="text"
+                  id="txCustomer"
+                  class="modal-input"
+                  placeholder="Search or enter customer name…"
+                  autocomplete="off"
+                />
+              </div>
+              <div
+                class="modal-customer-dropdown"
+                id="txCustomerDropdown"
+              ></div>
+              <div class="field-err" id="txCustomerErr"></div>
+            </div>
+            <div class="modal-field">
+              <label class="modal-label" for="txDate"
+                >Date <span class="req">*</span></label
+              >
+              <div class="modal-input-wrap">
+                <i class="fa fa-calendar"></i
+                ><input type="date" id="txDate" class="modal-input" />
+              </div>
+              <div class="field-err" id="txDateErr"></div>
+            </div>
+            <div class="modal-field">
+              <label class="modal-label" for="txKarat"
+                >Karat <span class="req">*</span></label
+              >
+              <div class="modal-input-wrap">
+                <i class="fa fa-star-half-stroke"></i>
+                <select id="txKarat" class="modal-input modal-select">
+                  <option value="">Select karat…</option>
+                  <option value="24">24K — 99.9% pure</option>
+                  <option value="22">22K — 91.7% pure</option>
+                  <option value="21">21K — 87.5% pure</option>
+                  <option value="18">18K — 75.0% pure</option>
+                  <option value="14">14K — 58.3% pure</option>
+                  <option value="10">10K — 41.7% pure</option>
+                  <option value="9">9K — 37.5% pure</option>
+                </select>
+              </div>
+              <div class="field-err" id="txKaratErr"></div>
+            </div>
+            <div class="modal-field">
+              <label class="modal-label" for="txWeight"
+                >Weight (grams) <span class="req">*</span></label
+              >
+              <div class="modal-input-wrap">
+                <i class="fa fa-weight-hanging"></i
+                ><input
+                  type="number"
+                  id="txWeight"
+                  class="modal-input"
+                  placeholder="0.0"
+                  min="0.01"
+                  step="0.01"
+                /><span class="modal-input-unit">g</span>
+              </div>
+              <div class="field-err" id="txWeightErr"></div>
+            </div>
+            <div class="modal-field">
+              <label class="modal-label" for="txUnitPrice">
+                Unit Price (GHS/g)
+                <button
+                  type="button"
+                  class="auto-price-btn"
+                  id="autoFillPrice"
+                  title="Auto-fill from live spot price"
+                >
+                  <i class="fa fa-bolt"></i> Auto
+                </button>
+              </label>
+              <div class="modal-input-wrap">
+                <i class="fa fa-coins"></i
+                ><input
+                  type="number"
+                  id="txUnitPrice"
+                  class="modal-input"
+                  placeholder="0.00"
+                  min="0"
+                  step="0.01"
+                /><span class="modal-input-unit">GHS</span>
+              </div>
+              <div class="field-err" id="txUnitPriceErr"></div>
+            </div>
+            <div class="modal-field">
+              <label class="modal-label" for="txStatus"
+                >Status <span class="req">*</span></label
+              >
+              <div class="modal-input-wrap">
+                <i class="fa fa-circle-half-stroke"></i>
+                <select id="txStatus" class="modal-input modal-select">
+                  <option value="Complete">Complete</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Processing">Processing</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-field full">
+              <label class="modal-label" for="txNotes"
+                >Notes <span class="modal-optional">(optional)</span></label
+              >
+              <textarea
+                id="txNotes"
+                class="modal-input modal-textarea"
+                placeholder="Add any additional notes about this transaction…"
+                rows="3"
+              ></textarea>
+            </div>
+          </div>
+          <div class="tx-summary" id="txSummary">
+            <div class="tx-summary-row">
+              <span>Weight</span><strong id="sumWeight">—</strong>
+            </div>
+            <div class="tx-summary-row">
+              <span>Unit Price</span><strong id="sumUnit">—</strong>
+            </div>
+            <div class="tx-summary-divider"></div>
+            <div class="tx-summary-row total">
+              <span>Estimated Total</span
+              ><strong id="sumTotal" class="sum-total-val">—</strong>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline" id="txModalCancel">Cancel</button>
+          <button class="btn btn-gold" id="txModalSubmit">
+            <span class="btn-text"
+              ><i class="fa fa-check"></i> Save Transaction</span
+            >
+            <div class="spinner"></div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================== ADD CUSTOMER MODAL ======================== -->
+    <div class="modal-backdrop" id="custModalBackdrop">
+      <div
+        class="modal"
+        id="custModal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="custModalTitle"
+      >
+        <div class="modal-header">
+          <div class="modal-header-left">
+            <div class="modal-icon"><i class="fa fa-user-plus"></i></div>
+            <div>
+              <div class="modal-title" id="custModalTitle">Add Customer</div>
+              <div class="modal-subtitle">Register a new client</div>
+            </div>
+          </div>
+          <button class="modal-close" id="custModalClose" aria-label="Close">
+            <i class="fa fa-xmark"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-alert" id="custModalAlert" style="display: none">
+            <i class="fa fa-circle-exclamation"></i>
+            <span id="custModalAlertMsg"></span>
+          </div>
+          <div class="modal-grid">
+            <div class="modal-field">
+              <label class="modal-label" for="custFirstName"
+                >First Name <span class="req">*</span></label
+              >
+              <div class="modal-input-wrap">
+                <i class="fa fa-user"></i>
+                <input
+                  type="text"
+                  id="custFirstName"
+                  class="modal-input"
+                  placeholder="Kofi"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="field-err" id="custFirstNameErr"></div>
+            </div>
+            <div class="modal-field">
+              <label class="modal-label" for="custLastName"
+                >Last Name <span class="req">*</span></label
+              >
+              <div class="modal-input-wrap">
+                <i class="fa fa-user"></i>
+                <input
+                  type="text"
+                  id="custLastName"
+                  class="modal-input"
+                  placeholder="Asante"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="field-err" id="custLastNameErr"></div>
+            </div>
+            <div class="modal-field">
+              <label class="modal-label" for="custPhone"
+                >Phone <span class="req">*</span></label
+              >
+              <div class="modal-input-wrap">
+                <i class="fa fa-phone"></i>
+                <input
+                  type="tel"
+                  id="custPhone"
+                  class="modal-input"
+                  placeholder="+233 24 000 0000"
+                />
+              </div>
+              <div class="field-err" id="custPhoneErr"></div>
+            </div>
+            <div class="modal-field">
+              <label class="modal-label" for="custLocation"
+                >Location <span class="req">*</span></label
+              >
+              <div class="modal-input-wrap">
+                <i class="fa fa-location-dot"></i>
+                <select id="custLocation" class="modal-input modal-select">
+                  <option value="">Select location…</option>
+                  <option>Accra</option>
+                  <option>Kumasi</option>
+                  <option>Takoradi</option>
+                  <option>Tamale</option>
+                  <option>Sunyani</option>
+                  <option>Ho</option>
+                  <option>Koforidua</option>
+                  <option>Cape Coast</option>
+                  <option>Techiman</option>
+                  <option>Obuasi</option>
+                  <option>Tema</option>
+                  <option>Madina</option>
+                  <option>Kasoa</option>
+                  <option>Ashaiman</option>
+                  <option>Prestea</option>
+                </select>
+              </div>
+              <div class="field-err" id="custLocationErr"></div>
+            </div>
+            <div class="modal-field">
+              <label class="modal-label" for="custEmail"
+                >Email <span class="modal-optional">(optional)</span></label
+              >
+              <div class="modal-input-wrap">
+                <i class="fa fa-envelope"></i>
+                <input
+                  type="email"
+                  id="custEmail"
+                  class="modal-input"
+                  placeholder="kofi@example.com"
+                />
+              </div>
+            </div>
+            <div class="modal-field">
+              <label class="modal-label" for="custStatus">Status</label>
+              <div class="modal-input-wrap">
+                <i class="fa fa-circle-half-stroke"></i>
+                <select id="custStatus" class="modal-input modal-select">
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-field full">
+              <label class="modal-label" for="custNotes"
+                >Notes <span class="modal-optional">(optional)</span></label
+              >
+              <textarea
+                id="custNotes"
+                class="modal-input modal-textarea"
+                placeholder="Any additional notes about this customer…"
+                rows="2"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline" id="custModalCancel">Cancel</button>
+          <button class="btn btn-gold" id="custModalSubmit">
+            <span class="btn-text"
+              ><i class="fa fa-check"></i> Save Customer</span
+            >
+            <div class="spinner"></div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">
+      <i class="fa fa-check-circle toast-icon"></i>
+      <span id="toastMsg"></span>
+    </div>
+
+    <!-- Sidebar overlay (for medium/mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <script src="./assets/fontawesome/all.min.js"></script>
+    <script src="./assets/custom/dashboard/js/main.js"></script>
+    <script src="./assets/custom/profile/js/profile-settings.js"></script>
+    <script src="./assets/custom/dashboard/js/reports.js"></script>
+  </body>
+</html>

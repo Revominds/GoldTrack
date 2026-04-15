@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./assets/images/Gold-Bars.png" />
+    <title>GoldTrack — Sign In</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./assets/fontawesome/all.min.css" />
+    <link rel="stylesheet" href="./assets/custom/home/css/styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <!-- ─── LEFT PANEL ─── -->
+      <div class="left-panel">
+        <div class="lp-noise"></div>
+        <div class="lp-grid"></div>
+        <div class="lp-glow"></div>
+        <div class="lp-content">
+          <div class="lp-logo">
+            <div class="lp-logo-icon">G</div>
+            <span class="lp-logo-text">Gold<span>Track</span></span>
+          </div>
+
+          <div class="lp-hero">
+            <div class="lp-eyebrow">Gold Management System</div>
+            <h1 class="lp-headline">
+              Trade smarter.<br />
+              <em>Track every gram.</em>
+            </h1>
+            <p class="lp-sub">
+              The all-in-one platform built for gold traders in Ghana and beyond
+              — real-time market prices, transaction management, and deep
+              customer insights.
+            </p>
+
+            <div class="lp-stats">
+              <div class="lp-stat">
+                <div class="lp-stat-val">2,400+</div>
+                <div class="lp-stat-lbl">Traders</div>
+              </div>
+              <div class="lp-stat">
+                <div class="lp-stat-val">GHS 4.8B</div>
+                <div class="lp-stat-lbl">Tracked</div>
+              </div>
+              <div class="lp-stat">
+                <div class="lp-stat-val">99.9%</div>
+                <div class="lp-stat-lbl">Uptime</div>
+              </div>
+            </div>
+
+            <div class="lp-divider"></div>
+
+            <div class="lp-quote">
+              GoldTrack transformed how we manage our daily gold transactions.
+              The live pricing and customer records alone saved us hours every
+              week.
+              <div class="lp-quote-author">
+                <div class="lp-quote-av">KO</div>
+                <span>Kwame Osei-Bonsu — Obuasi Gold Traders, Kumasi</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lp-bottom">
+            <div class="lp-badge">
+              <i class="fa fa-shield-halved"></i> 256-bit encryption
+            </div>
+            <div class="lp-badge">
+              <i class="fa fa-clock"></i> Live gold prices
+            </div>
+            <div class="lp-badge">
+              <i class="fa fa-certificate"></i> GRA compliant
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── RIGHT PANEL ─── -->
+      <div class="right-panel">
+        <div class="gold-line"></div>
+
+        <button class="theme-btn" id="themeBtn" title="Toggle theme">
+          <i class="fa fa-moon"></i>
+        </button>
+
+        <div class="form-box">
+          <!-- TABS -->
+          <div class="tabs" role="tablist">
+            <button
+              class="tab active"
+              id="tabLogin"
+              role="tab"
+              onclick="switchTab('login')"
+            >
+              Sign In
+            </button>
+            <button
+              class="tab"
+              id="tabSignup"
+              role="tab"
+              onclick="switchTab('signup')"
+            >
+              Create Account
+            </button>
+          </div>
+
+          <!-- ══ LOGIN FORM ══ -->
+          <div class="form-panel active" id="panelLogin">
+            <h2 class="form-heading">Welcome back</h2>
+            <p class="form-subheading">
+              Sign in to your GoldTrack account to continue
+            </p>
+
+            <div class="alert alert-error" id="loginAlert">
+              <i class="fa fa-circle-exclamation"></i>
+              <span id="loginAlertMsg"
+                >Invalid email or password. Please try again.</span
+              >
+            </div>
+
+            <div class="social-row">
+              <button class="social-btn" onclick="socialAuth('Google')">
+                <div class="g-icon"></div>
+                Google
+              </button>
+              <button class="social-btn" onclick="socialAuth('Microsoft')">
+                <i class="fa-brands fa-microsoft" style="color: #00a4ef"></i>
+                Microsoft
+              </button>
+            </div>
+
+            <div class="or-divider">or continue with email</div>
+
+            <div class="field">
+              <label for="loginEmail">Email address</label>
+              <div class="field-wrap">
+                <i class="fa fa-envelope f-icon"></i>
+                <input
+                  type="email"
+                  id="loginEmail"
+                  placeholder="you@company.com"
+                  autocomplete="email"
+                />
+                <div
+                  class="field-error"
+                  id="loginEmailErr"
+                  style="display: none"
+                >
+                  <i class="fa fa-circle-exclamation"></i><span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="loginPw">Password</label>
+              <div class="field-wrap">
+                <i class="fa fa-lock f-icon"></i>
+                <input
+                  type="password"
+                  id="loginPw"
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                />
+                <button
+                  class="eye-btn"
+                  type="button"
+                  onclick="togglePw('loginPw', this)"
+                >
+                  <i class="fa fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="forgot-row">
+              <a
+                href="#"
+                onclick="
+                  showForgot();
+                  return false;
+                "
+                >Forgot password?</a
+              >
+            </div>
+
+            <div class="check-row">
+              <input type="checkbox" id="rememberMe" checked />
+              <label for="rememberMe">Remember me on this device</label>
+            </div>
+
+            <button class="submit-btn" id="loginBtn" onclick="handleLogin()">
+              <span class="btn-text"
+                ><i class="fa fa-right-to-bracket"></i> Sign In</span
+              >
+              <div class="spinner"></div>
+            </button>
+
+            <div class="switch-text">
+              Don't have an account?
+              <a
+                href="#"
+                onclick="
+                  switchTab('signup');
+                  return false;
+                "
+                >Create one free →</a
+              >
+            </div>
+          </div>
+
+          <!-- ══ SIGNUP FORM ══ -->
+          <div class="form-panel" id="panelSignup">
+            <h2 class="form-heading">Create your account</h2>
+            <p class="form-subheading">
+              Start tracking your gold trades in minutes — free forever
+            </p>
+
+            <div class="alert alert-error" id="signupAlert">
+              <i class="fa fa-circle-exclamation"></i>
+              <span id="signupAlertMsg">Please fix the errors below.</span>
+            </div>
+
+            <div class="social-row">
+              <button class="social-btn" onclick="socialAuth('Google')">
+                <div class="g-icon"></div>
+                Sign up with Google
+              </button>
+            </div>
+
+            <div class="or-divider">or fill in the details</div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="signupFirst">First name</label>
+                <div class="field-wrap">
+                  <i class="fa fa-user f-icon"></i>
+                  <input
+                    type="text"
+                    id="signupFirst"
+                    placeholder="Kofi"
+                    autocomplete="given-name"
+                  />
+                </div>
+                <div
+                  class="field-error"
+                  id="signupFirstErr"
+                  style="display: none"
+                >
+                  <i class="fa fa-circle-exclamation"></i><span></span>
+                </div>
+              </div>
+              <div class="field">
+                <label for="signupLast">Last name</label>
+                <div class="field-wrap">
+                  <i class="fa fa-user f-icon"></i>
+                  <input
+                    type="text"
+                    id="signupLast"
+                    placeholder="Mensah"
+                    autocomplete="family-name"
+                  />
+                </div>
+                <div
+                  class="field-error"
+                  id="signupLastErr"
+                  style="display: none"
+                >
+                  <i class="fa fa-circle-exclamation"></i><span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="signupEmail">Work email</label>
+              <div class="field-wrap">
+                <i class="fa fa-envelope f-icon"></i>
+                <input
+                  type="email"
+                  id="signupEmail"
+                  placeholder="kofi@yourcompany.com"
+                  autocomplete="email"
+                />
+              </div>
+              <div
+                class="field-error"
+                id="signupEmailErr"
+                style="display: none"
+              >
+                <i class="fa fa-circle-exclamation"></i><span></span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="signupPhone">Phone number</label>
+              <div class="field-wrap">
+                <i class="fa fa-phone f-icon"></i>
+                <input
+                  type="tel"
+                  id="signupPhone"
+                  placeholder="+233 24 000 0000"
+                  autocomplete="tel"
+                />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="signupPw">Password</label>
+              <div class="field-wrap">
+                <i class="fa fa-lock f-icon"></i>
+                <input
+                  type="password"
+                  id="signupPw"
+                  placeholder="Create a strong password"
+                  autocomplete="new-password"
+                  oninput="checkStrength(this.value)"
+                />
+                <button
+                  class="eye-btn"
+                  type="button"
+                  onclick="togglePw('signupPw', this)"
+                >
+                  <i class="fa fa-eye"></i>
+                </button>
+              </div>
+              <div class="pw-strength">
+                <div class="pw-strength-bars">
+                  <div class="pw-bar" id="bar1"></div>
+                  <div class="pw-bar" id="bar2"></div>
+                  <div class="pw-bar" id="bar3"></div>
+                  <div class="pw-bar" id="bar4"></div>
+                </div>
+                <div class="pw-label" id="pwLabel">
+                  Use 8+ characters with numbers and symbols
+                </div>
+              </div>
+              <div class="field-error" id="signupPwErr" style="display: none">
+                <i class="fa fa-circle-exclamation"></i><span></span>
+              </div>
+            </div>
+
+            <div class="field" style="margin-bottom: 16px">
+              <label for="signupPw2">Confirm password</label>
+              <div class="field-wrap">
+                <i class="fa fa-lock f-icon"></i>
+                <input
+                  type="password"
+                  id="signupPw2"
+                  placeholder="Repeat your password"
+                  autocomplete="new-password"
+                />
+                <button
+                  class="eye-btn"
+                  type="button"
+                  onclick="togglePw('signupPw2', this)"
+                >
+                  <i class="fa fa-eye"></i>
+                </button>
+              </div>
+              <div class="field-error" id="signupPw2Err" style="display: none">
+                <i class="fa fa-circle-exclamation"></i><span></span>
+              </div>
+            </div>
+
+            <div class="check-row">
+              <input type="checkbox" id="agreeTerms" />
+              <label for="agreeTerms"
+                >I agree to the <a href="legal.html">Terms of Service</a> and
+                <a href="legal.html">Privacy Policy</a></label
+              >
+            </div>
+
+            <button class="submit-btn" id="signupBtn" onclick="handleSignup()">
+              <span class="btn-text"
+                ><i class="fa fa-user-plus"></i> Create Account</span
+              >
+              <div class="spinner"></div>
+            </button>
+
+            <div class="switch-text">
+              Already have an account?
+              <a
+                href="#"
+                onclick="
+                  switchTab('login');
+                  return false;
+                "
+                >Sign in →</a
+              >
+            </div>
+          </div>
+
+          <!-- ══ FORGOT PASSWORD ══ -->
+          <div class="form-panel" id="panelForgot">
+            <a
+              href="#"
+              onclick="
+                switchTab('login');
+                return false;
+              "
+              style="
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 13px;
+                color: var(--text2);
+                text-decoration: none;
+                margin-bottom: 24px;
+              "
+              ><i class="fa fa-arrow-left" style="font-size: 11px"></i> Back to
+              sign in</a
+            >
+            <h2 class="form-heading">Reset password</h2>
+            <p class="form-subheading">
+              Enter your email and we'll send you a reset link
+            </p>
+
+            <div class="field">
+              <label for="forgotEmail">Email address</label>
+              <div class="field-wrap">
+                <i class="fa fa-envelope f-icon"></i>
+                <input
+                  type="email"
+                  id="forgotEmail"
+                  placeholder="you@company.com"
+                />
+              </div>
+            </div>
+
+            <button class="submit-btn" id="forgotBtn" onclick="handleForgot()">
+              <span class="btn-text"
+                ><i class="fa fa-paper-plane"></i> Send Reset Link</span
+              >
+              <div class="spinner"></div>
+            </button>
+
+            <!-- Success state -->
+            <div class="success-msg" id="forgotSuccess">
+              <div class="check-circle"><i class="fa fa-check"></i></div>
+              <h3>Check your inbox</h3>
+              <p>
+                We sent a password reset link to<br /><strong
+                  id="forgotEmailSent"
+                ></strong>
+              </p>
+              <button class="go-btn" onclick="switchTab('login')">
+                <i class="fa fa-right-to-bracket"></i> Back to Sign In
+              </button>
+            </div>
+          </div>
+
+          <!-- ══ SIGNUP SUCCESS ══ -->
+          <div class="form-panel" id="panelSuccess">
+            <div class="success-msg" style="display: block; padding: 40px 0">
+              <div class="check-circle"><i class="fa fa-check"></i></div>
+              <h3>Account created!</h3>
+              <p>
+                Welcome to GoldTrack,
+                <strong id="successName"></strong>.<br />Your account is ready.
+                Let's go.
+              </p>
+              <button class="go-btn" onclick="goToDashboard()">
+                <i class="fa fa-gauge"></i> Open Dashboard
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- /form-box -->
+      </div>
+      <!-- /right-panel -->
+    </div>
+    <!-- /page -->
+
+    <script src="./assets/fontawesome/all.min.js"></script>
+    <script src="./assets/custom/home/js/main.js"></script>
+  </body>
+</html>

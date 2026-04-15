@@ -1,0 +1,1341 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./assets/images/Gold-Bars.png" />
+    <title>GoldTrack — Legal</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./assets/fontawesome/all.min.css" />
+    <link rel="stylesheet" href="./assets/custom/legal/css/styles.css" />
+  </head>
+  <body>
+    <div class="gold-shimmer"></div>
+    <div class="reading-bar" id="readingBar"></div>
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <a class="topbar-logo" href="index.html">
+        <div class="logo-icon">G</div>
+        <span class="logo-text">Gold<span>Track</span></span>
+      </a>
+      <div class="topbar-right">
+        <button class="theme-btn" id="themeBtn">
+          <i class="fa fa-moon"></i>
+        </button>
+        <a class="back-btn" href="index.html"
+          ><i class="fa fa-arrow-left"></i> Back</a
+        >
+      </div>
+    </header>
+
+    <div class="layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-doc-switch">
+          <button
+            class="doc-tab active"
+            id="sideTabTos"
+            onclick="switchDoc('tos')"
+          >
+            Terms
+          </button>
+          <button class="doc-tab" id="sideTabPp" onclick="switchDoc('pp')">
+            Privacy
+          </button>
+        </div>
+
+        <!-- TOS NAV -->
+        <div id="sideNavTos">
+          <div class="sidebar-section">Terms of Service</div>
+          <a
+            class="sidebar-link active"
+            onclick="scrollTo('tos-acceptance')"
+            href="#tos-acceptance"
+            ><i class="fa fa-circle-check"></i> Acceptance</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('tos-services')"
+            href="#tos-services"
+            ><i class="fa fa-cubes"></i> Our Services</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('tos-accounts')"
+            href="#tos-accounts"
+            ><i class="fa fa-user-shield"></i> Accounts</a
+          >
+          <a class="sidebar-link" onclick="scrollTo('tos-use')" href="#tos-use"
+            ><i class="fa fa-scale-balanced"></i> Acceptable Use</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('tos-data')"
+            href="#tos-data"
+            ><i class="fa fa-database"></i> Your Data</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('tos-payments')"
+            href="#tos-payment"
+            ><i class="fa fa-credit-card"></i> Payments</a
+          >
+          <a class="sidebar-link" onclick="scrollTo('tos-ip')" href="#tos-ip"
+            ><i class="fa fa-copyright"></i> Intellectual Property</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('tos-disclaimer')"
+            href="#tos-disclaimer"
+            ><i class="fa fa-triangle-exclamation"></i> Disclaimers</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('tos-liability')"
+            href="#tos-liability"
+            ><i class="fa fa-gavel"></i> Liability</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('tos-termination')"
+            href="#tos-termination"
+            ><i class="fa fa-ban"></i> Termination</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('tos-governing')"
+            href="#tos-governing"
+            ><i class="fa fa-landmark"></i> Governing Law</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('tos-contact')"
+            href="#tos-contact"
+            ><i class="fa fa-envelope"></i> Contact</a
+          >
+        </div>
+
+        <!-- PP NAV -->
+        <div id="sideNavPp" style="display: none">
+          <div class="sidebar-section">Privacy Policy</div>
+          <a
+            class="sidebar-link active"
+            onclick="scrollTo('pp-intro')"
+            href="#pp-intro"
+            ><i class="fa fa-circle-info"></i> Overview</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('pp-collect')"
+            href="#pp-collect"
+            ><i class="fa fa-magnifying-glass"></i> Data We Collect</a
+          >
+          <a class="sidebar-link" onclick="scrollTo('pp-how')" href="#pp-how"
+            ><i class="fa fa-gears"></i> How We Use It</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('pp-share')"
+            href="#pp-share"
+            ><i class="fa fa-share-nodes"></i> Sharing</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('pp-cookies')"
+            href="#pp-cookies"
+            ><i class="fa fa-cookie-bite"></i> Cookies</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('pp-retention')"
+            href="#pp-retention"
+            ><i class="fa fa-clock-rotate-left"></i> Data Retention</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('pp-security')"
+            href="#pp-security"
+            ><i class="fa fa-shield-halved"></i> Security</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('pp-rights')"
+            href="#pp-rights"
+            ><i class="fa fa-person-circle-check"></i> Your Rights</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('pp-children')"
+            href="#pp-children"
+            ><i class="fa fa-child"></i> Children</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('pp-transfers')"
+            href="#pp-transfers"
+            ><i class="fa fa-globe"></i> Transfers</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('pp-changes')"
+            href="#pp-changes"
+            ><i class="fa fa-rotate"></i> Changes</a
+          >
+          <a
+            class="sidebar-link"
+            onclick="scrollTo('pp-contact')"
+            href="#pp-contact"
+            ><i class="fa fa-envelope"></i> Contact</a
+          >
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="main">
+        <!-- ═══════════════════════════════════════ -->
+        <!--            TERMS OF SERVICE            -->
+        <!-- ═══════════════════════════════════════ -->
+        <div class="doc-panel active" id="panel-tos">
+          <div class="doc-hero">
+            <div class="doc-eyebrow">Legal Document</div>
+            <h1 class="doc-title">Terms of Service</h1>
+            <div class="doc-meta">
+              <span
+                ><i class="fa fa-calendar"></i> Effective: 1 April 2025</span
+              >
+              <span
+                ><i class="fa fa-rotate"></i> Last updated: 12 April 2026</span
+              >
+              <span
+                ><i class="fa fa-location-dot"></i> Governed by laws of
+                Ghana</span
+              >
+            </div>
+            <div class="doc-intro">
+              Please read these Terms carefully before using GoldTrack. By
+              creating an account or accessing any part of our platform, you
+              confirm that you have read, understood, and agree to be bound by
+              these Terms and our Privacy Policy.
+            </div>
+          </div>
+
+          <!-- 1. Acceptance -->
+          <div class="section" id="tos-acceptance">
+            <div class="section-num">Section 01</div>
+            <h2 class="section-title">
+              <i class="fa fa-circle-check"></i> Acceptance of Terms
+            </h2>
+            <p>
+              These Terms of Service ("Terms") constitute a legally binding
+              agreement between you ("User", "you", or "your") and GoldTrack
+              Technologies Ltd ("GoldTrack", "we", "us", or "our"), a company
+              registered in Ghana, governing your access to and use of the
+              GoldTrack platform, including all related websites, mobile
+              applications, and services (collectively, the "Service").
+            </p>
+            <p>
+              By registering for an account, accessing the dashboard, or
+              otherwise using the Service, you acknowledge that you are at least
+              18 years of age, have the legal capacity to enter into binding
+              contracts under Ghanaian law, and agree to be bound by these
+              Terms. If you are using the Service on behalf of a business or
+              organisation, you represent that you have the authority to bind
+              that entity to these Terms.
+            </p>
+            <p>
+              If you do not agree to these Terms, you must immediately
+              discontinue use of the Service and close your account.
+            </p>
+          </div>
+
+          <!-- 2. Services -->
+          <div class="section" id="tos-services">
+            <div class="section-num">Section 02</div>
+            <h2 class="section-title">
+              <i class="fa fa-cubes"></i> Description of Services
+            </h2>
+            <p>
+              GoldTrack provides a cloud-based gold trading management platform
+              designed for gold traders, dealers, jewellers, and related
+              businesses. Our Service includes:
+            </p>
+            <ul>
+              <li>
+                <strong>Transaction Management</strong> — record, track, and
+                manage gold buy and sell transactions with full audit trails
+              </li>
+              <li>
+                <strong>Customer Relationship Management (CRM)</strong> — store
+                and manage your client database, contact details, and purchase
+                history
+              </li>
+              <li>
+                <strong>Gold Price Calculator</strong> — real-time gold value
+                calculations based on live spot prices, karat purity, and custom
+                margin settings
+              </li>
+              <li>
+                <strong>Live Market Data</strong> — display of gold spot prices
+                (XAU/USD, XAU/GHS) and currency exchange rates sourced from
+                third-party providers
+              </li>
+              <li>
+                <strong>Reporting & Analytics</strong> — generate sales,
+                customer, and profit-and-loss reports across configurable date
+                ranges
+              </li>
+              <li>
+                <strong>Receipt Generation</strong> — create and print
+                professional transaction receipts for customers
+              </li>
+            </ul>
+            <div class="callout callout-warn">
+              <i class="fa fa-triangle-exclamation"></i>
+              <div>
+                <strong>Market Data Disclaimer:</strong> All gold and currency
+                prices displayed on the platform are sourced from third-party
+                data providers for informational purposes only. GoldTrack does
+                not guarantee the accuracy, completeness, or timeliness of this
+                data.
+                <strong
+                  >Do not rely solely on this platform for financial or
+                  investment decisions.</strong
+                >
+              </div>
+            </div>
+            <p>
+              We reserve the right to modify, suspend, or discontinue any
+              feature or aspect of the Service at any time, with or without
+              notice, and without liability to you.
+            </p>
+          </div>
+
+          <!-- 3. Accounts -->
+          <div class="section" id="tos-accounts">
+            <div class="section-num">Section 03</div>
+            <h2 class="section-title">
+              <i class="fa fa-user-shield"></i> Account Registration & Security
+            </h2>
+            <p>
+              To access the full features of GoldTrack, you must create an
+              account by providing accurate, current, and complete information
+              including your name, email address, and phone number. You agree to
+              maintain and promptly update your account information to keep it
+              accurate.
+            </p>
+            <p>You are solely responsible for:</p>
+            <ul>
+              <li>
+                Maintaining the confidentiality of your login credentials and
+                password
+              </li>
+              <li>
+                Restricting access to your account from unauthorised individuals
+              </li>
+              <li>
+                All activity that occurs under your account, whether or not you
+                authorised it
+              </li>
+              <li>
+                Notifying us immediately at
+                <a
+                  href="mailto:security@goldtrack.gh"
+                  style="color: var(--gold)"
+                  >security@goldtrack.gh</a
+                >
+                if you suspect any unauthorised access
+              </li>
+            </ul>
+            <p>
+              You may not share your account credentials with any other person
+              or entity. Each user must have their own account. GoldTrack will
+              not be liable for any loss or damage arising from your failure to
+              comply with these obligations.
+            </p>
+            <p>
+              We reserve the right to disable any account or refuse registration
+              at our sole discretion, particularly where we believe the account
+              is being used in violation of these Terms.
+            </p>
+          </div>
+
+          <!-- 4. Acceptable Use -->
+          <div class="section" id="tos-use">
+            <div class="section-num">Section 04</div>
+            <h2 class="section-title">
+              <i class="fa fa-scale-balanced"></i> Acceptable Use Policy
+            </h2>
+            <p>
+              You agree to use the Service only for lawful purposes and in
+              compliance with all applicable Ghanaian laws, including
+              regulations issued by the Minerals Commission of Ghana and the
+              Precious Minerals Marketing Company (PMMC). You must not use the
+              Service to:
+            </p>
+            <ul>
+              <li>
+                Record, facilitate, or conceal any transaction that violates
+                applicable laws, including laws against money laundering,
+                illegal gold mining ("galamsey"), or trafficking in illegally
+                obtained minerals
+              </li>
+              <li>
+                Falsify transaction records, customer information, weights,
+                karat values, or pricing data
+              </li>
+              <li>
+                Circumvent any regulatory reporting or Know Your Customer (KYC)
+                requirements applicable to gold trading in Ghana
+              </li>
+              <li>
+                Attempt to gain unauthorised access to any part of the Service,
+                our servers, or data belonging to other users
+              </li>
+              <li>
+                Upload or transmit any malware, viruses, or other harmful code
+              </li>
+              <li>
+                Scrape, harvest, or extract data from the platform through
+                automated means without our written consent
+              </li>
+              <li>
+                Resell, sublicense, or commercially exploit the Service in any
+                form not expressly permitted by us
+              </li>
+              <li>
+                Impersonate any person or entity, or misrepresent your
+                affiliation with any person or entity
+              </li>
+            </ul>
+            <div class="callout callout-danger">
+              <i class="fa fa-circle-exclamation"></i>
+              <div>
+                <strong>Compliance Notice:</strong> GoldTrack is committed to
+                supporting Ghana's legal gold trading ecosystem. Any use of this
+                platform in connection with illegal small-scale mining or
+                unlicensed gold trading is strictly prohibited and may be
+                reported to relevant authorities. Users are required to hold all
+                applicable licences for their trading activities.
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Data -->
+          <div class="section" id="tos-data">
+            <div class="section-num">Section 05</div>
+            <h2 class="section-title">
+              <i class="fa fa-database"></i> Your Data &amp; Content
+            </h2>
+            <p>
+              You retain full ownership of all data, transaction records,
+              customer information, and other content ("User Content") that you
+              submit, upload, or create through the Service. By using GoldTrack,
+              you grant us a limited, non-exclusive, worldwide, royalty-free
+              licence to access, store, process, and display your User Content
+              solely as necessary to provide and improve the Service.
+            </p>
+            <p>
+              You are solely responsible for the accuracy, legality, and
+              integrity of all data you enter into the platform. GoldTrack does
+              not verify, validate, or endorse any User Content.
+            </p>
+            <p>
+              You agree to maintain appropriate backups of critical business
+              data. While we take reasonable measures to protect your data, we
+              do not guarantee that no loss, corruption, or breach will ever
+              occur, and we are not liable for data loss unless caused by our
+              gross negligence or wilful misconduct.
+            </p>
+          </div>
+
+          <!-- 6. Payments -->
+          <div class="section" id="tos-payments">
+            <div class="section-num">Section 06</div>
+            <h2 class="section-title">
+              <i class="fa fa-credit-card"></i> Subscription &amp; Payments
+            </h2>
+            <p>
+              GoldTrack offers both a free tier and paid subscription plans. The
+              features available under each plan are described on our pricing
+              page, which may be updated from time to time. By subscribing to a
+              paid plan, you agree to the following:
+            </p>
+            <ul>
+              <li>
+                <strong>Billing Cycle:</strong> Subscriptions are billed monthly
+                or annually as selected at checkout. Billing occurs
+                automatically at the start of each billing cycle.
+              </li>
+              <li>
+                <strong>Payment Methods:</strong> We accept mobile money (MTN
+                MoMo, Vodafone Cash, AirtelTigo Money) and major debit/credit
+                cards. All transactions are processed in Ghanaian Cedis (GHS)
+                unless otherwise stated.
+              </li>
+              <li>
+                <strong>Price Changes:</strong> We will provide at least 30
+                days' written notice of any changes to subscription pricing.
+              </li>
+              <li>
+                <strong>Refunds:</strong> Subscription fees are non-refundable
+                except where required by applicable law, or where we have
+                materially failed to provide the Service as described. Refund
+                requests must be submitted within 14 days of the charge.
+              </li>
+              <li>
+                <strong>Taxes:</strong> Prices displayed exclude VAT and any
+                other applicable taxes. You are responsible for any taxes
+                applicable to your use of the Service in your jurisdiction.
+              </li>
+              <li>
+                <strong>Cancellation:</strong> You may cancel your subscription
+                at any time. Upon cancellation, you will retain access to paid
+                features until the end of the current billing period.
+              </li>
+            </ul>
+            <div class="callout callout-info">
+              <i class="fa fa-circle-info"></i>
+              <div>
+                Free tier users may access core features subject to usage
+                limits. GoldTrack reserves the right to modify the features
+                included in the free tier at any time.
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. IP -->
+          <div class="section" id="tos-ip">
+            <div class="section-num">Section 07</div>
+            <h2 class="section-title">
+              <i class="fa fa-copyright"></i> Intellectual Property
+            </h2>
+            <p>
+              The GoldTrack platform, including its name, logo, design,
+              codebase, algorithms, user interface elements, and all related
+              documentation, is owned by GoldTrack Technologies Ltd and is
+              protected by Ghanaian and international copyright, trademark, and
+              intellectual property laws.
+            </p>
+            <p>
+              We grant you a limited, non-exclusive, non-transferable, revocable
+              licence to access and use the Service solely for your own internal
+              business purposes. This licence does not include the right to:
+            </p>
+            <ul>
+              <li>
+                Copy, reproduce, or distribute any portion of the platform
+              </li>
+              <li>
+                Reverse engineer, decompile, or attempt to extract the source
+                code of the Service
+              </li>
+              <li>Create derivative works based on the Service</li>
+              <li>
+                Use our trademarks, logo, or brand assets without prior written
+                permission
+              </li>
+            </ul>
+            <p>
+              Any feedback, suggestions, or ideas you provide to us regarding
+              the Service may be used by us freely without any obligation to
+              compensate you.
+            </p>
+          </div>
+
+          <!-- 8. Disclaimers -->
+          <div class="section" id="tos-disclaimer">
+            <div class="section-num">Section 08</div>
+            <h2 class="section-title">
+              <i class="fa fa-triangle-exclamation"></i> Disclaimers
+            </h2>
+            <p>
+              THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT
+              WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT
+              NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+              PARTICULAR PURPOSE, TITLE, OR NON-INFRINGEMENT.
+            </p>
+            <p>GoldTrack does not warrant that:</p>
+            <ul>
+              <li>
+                The Service will be uninterrupted, error-free, or free of
+                viruses or other harmful components
+              </li>
+              <li>
+                The results obtained from using the Service will be accurate,
+                reliable, or meet your requirements
+              </li>
+              <li>
+                Live market data displayed on the platform reflects actual
+                current market conditions at any given moment
+              </li>
+              <li>Any errors or defects in the Service will be corrected</li>
+            </ul>
+            <p>
+              GoldTrack is a business management tool. It is not a licensed
+              financial adviser, commodity broker, or investment platform.
+              Nothing on the platform constitutes financial, investment, legal,
+              or tax advice.
+            </p>
+          </div>
+
+          <!-- 9. Liability -->
+          <div class="section" id="tos-liability">
+            <div class="section-num">Section 09</div>
+            <h2 class="section-title">
+              <i class="fa fa-gavel"></i> Limitation of Liability
+            </h2>
+            <p>
+              TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, GOLDTRACK AND
+              ITS DIRECTORS, EMPLOYEES, AGENTS, AND AFFILIATES SHALL NOT BE
+              LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR
+              PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS,
+              LOSS OF REVENUE, LOSS OF DATA, LOSS OF GOODWILL, OR BUSINESS
+              INTERRUPTION.
+            </p>
+            <p>
+              In no event shall GoldTrack's total aggregate liability to you for
+              all claims arising out of or relating to these Terms or the
+              Service exceed the greater of: (a) the total amount you paid to
+              GoldTrack in the twelve (12) months preceding the claim, or (b)
+              GHS 500.00.
+            </p>
+            <p>
+              Some jurisdictions do not allow the exclusion or limitation of
+              liability for certain types of damages, so some of the above
+              limitations may not apply to you.
+            </p>
+          </div>
+
+          <!-- 10. Termination -->
+          <div class="section" id="tos-termination">
+            <div class="section-num">Section 10</div>
+            <h2 class="section-title"><i class="fa fa-ban"></i> Termination</h2>
+            <p>
+              You may terminate your account at any time by contacting us at
+              <a href="mailto:support@goldtrack.gh" style="color: var(--gold)"
+                >support@goldtrack.gh</a
+              >
+              or by using the account deletion option in Settings. Upon
+              termination, your licence to use the Service will immediately
+              cease.
+            </p>
+            <p>
+              We may suspend or terminate your account immediately, without
+              prior notice or liability, if we determine in our sole discretion
+              that you have violated these Terms, engaged in fraudulent
+              activity, posed a risk to our platform or other users, or for any
+              other reason we deem appropriate.
+            </p>
+            <p>
+              Upon termination for any reason, you may request an export of your
+              data within 30 days. After that period, we may permanently delete
+              your data in accordance with our data retention policies.
+              Provisions of these Terms that by their nature should survive
+              termination shall survive, including those relating to
+              intellectual property, disclaimers, and limitations of liability.
+            </p>
+          </div>
+
+          <!-- 11. Governing Law -->
+          <div class="section" id="tos-governing">
+            <div class="section-num">Section 11</div>
+            <h2 class="section-title">
+              <i class="fa fa-landmark"></i> Governing Law &amp; Disputes
+            </h2>
+            <p>
+              These Terms shall be governed by and construed in accordance with
+              the laws of the Republic of Ghana, without regard to conflict of
+              law principles. Any dispute arising from or relating to these
+              Terms or your use of the Service shall first be attempted to be
+              resolved through good-faith negotiation between the parties.
+            </p>
+            <p>
+              If a dispute cannot be resolved through negotiation within 30
+              days, it shall be referred to binding arbitration administered by
+              the Ghana Arbitration Centre in accordance with its rules.
+              Arbitration shall be conducted in English in Accra, Ghana. Each
+              party shall bear its own arbitration costs unless the arbitrator
+              determines otherwise.
+            </p>
+            <p>
+              Nothing in this section prevents either party from seeking
+              emergency injunctive relief from a court of competent jurisdiction
+              to protect its intellectual property or confidential information.
+            </p>
+          </div>
+
+          <!-- 12. Contact -->
+          <div class="section" id="tos-contact">
+            <div class="section-num">Section 12</div>
+            <h2 class="section-title">
+              <i class="fa fa-envelope"></i> Contact Us
+            </h2>
+            <p>
+              If you have questions about these Terms of Service, please contact
+              our legal team:
+            </p>
+            <div class="contact-card">
+              <div class="contact-icon">
+                <i class="fa fa-building-columns"></i>
+              </div>
+              <div>
+                <div class="contact-title">
+                  GoldTrack Technologies Ltd — Legal
+                </div>
+                <div class="contact-detail">
+                  Sowutwom, Pentecost University, Accra, Ghana<br />
+                  Email:
+                  <a href="mailto:ai.revominds@gmail.com"
+                    >ai.revominds@gmail.com</a
+                  ><br />
+                  Phone: <a href="tel:+233553977242">+233 55 397 7242</a><br />
+                  Business hours: Mon–Fri, 08:00–17:00 GMT
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="doc-footer">
+            <span
+              >© <small class="ft-cyr"></small> GoldTrack Technologies Ltd. All
+              rights reserved | Developed by
+              <a href="https://github.com/revominds">Revominds</a> &
+              <a href="#">Godfred</a>
+            </span>
+            <a
+              href="#"
+              onclick="
+                switchDoc('pp');
+                return false;
+              "
+              >View Privacy Policy →</a
+            >
+          </div>
+        </div>
+        <!-- /panel-tos -->
+
+        <!-- ═══════════════════════════════════════ -->
+        <!--             PRIVACY POLICY             -->
+        <!-- ═══════════════════════════════════════ -->
+        <div class="doc-panel" id="panel-pp">
+          <div class="doc-hero">
+            <div class="doc-eyebrow">Legal Document</div>
+            <h1 class="doc-title">Privacy Policy</h1>
+            <div class="doc-meta">
+              <span
+                ><i class="fa fa-calendar"></i> Effective: 1 April 2025</span
+              >
+              <span
+                ><i class="fa fa-rotate"></i> Last updated: 12 April 2026</span
+              >
+              <span
+                ><i class="fa fa-shield-halved"></i> GDPR &amp; DPA 2012
+                compliant</span
+              >
+            </div>
+            <div class="doc-intro">
+              Your privacy matters to us. This Privacy Policy explains what
+              personal information GoldTrack collects, how we use it, with whom
+              we share it, and the rights you have over your data. We comply
+              with Ghana's Data Protection Act, 2012 (Act 843) and, where
+              applicable, the EU General Data Protection Regulation (GDPR).
+            </div>
+          </div>
+
+          <!-- 1. Overview -->
+          <div class="section" id="pp-intro">
+            <div class="section-num">Section 01</div>
+            <h2 class="section-title">
+              <i class="fa fa-circle-info"></i> Who We Are &amp; Scope
+            </h2>
+            <p>
+              GoldTrack Technologies Ltd ("GoldTrack", "we", "us") is the data
+              controller for personal information collected through the
+              GoldTrack platform. Our registered address is Plot 14, Ring Road
+              Central, Accra, Ghana.
+            </p>
+            <p>
+              This Privacy Policy applies to all users of the GoldTrack website,
+              web application, and any related services. It does not apply to
+              third-party websites or services that may be linked from our
+              platform — please review their privacy policies independently.
+            </p>
+            <p>
+              By using our Service, you consent to the collection, use, and
+              disclosure of your information as described in this Privacy
+              Policy. If you do not agree, please discontinue use of the
+              Service.
+            </p>
+          </div>
+
+          <!-- 2. Data We Collect -->
+          <div class="section" id="pp-collect">
+            <div class="section-num">Section 02</div>
+            <h2 class="section-title">
+              <i class="fa fa-magnifying-glass"></i> Data We Collect
+            </h2>
+            <p>We collect information in the following categories:</p>
+
+            <table class="legal-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Examples</th>
+                  <th>Source</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Account Information</strong></td>
+                  <td>
+                    Full name, email address, phone number, password (hashed)
+                  </td>
+                  <td>You, at registration</td>
+                </tr>
+                <tr>
+                  <td><strong>Business Information</strong></td>
+                  <td>
+                    Business name, trading licence number, physical address
+                  </td>
+                  <td>You, during onboarding</td>
+                </tr>
+                <tr>
+                  <td><strong>Transaction Data</strong></td>
+                  <td>
+                    Gold weight, karat, unit price, total value, transaction
+                    type, date
+                  </td>
+                  <td>You, through the platform</td>
+                </tr>
+                <tr>
+                  <td><strong>Customer Records</strong></td>
+                  <td>
+                    Your clients' names, phone numbers, locations, purchase
+                    history
+                  </td>
+                  <td>You, entered into the CRM</td>
+                </tr>
+                <tr>
+                  <td><strong>Usage Data</strong></td>
+                  <td>
+                    Pages visited, features used, session duration, click
+                    patterns
+                  </td>
+                  <td>Automatically collected</td>
+                </tr>
+                <tr>
+                  <td><strong>Device &amp; Log Data</strong></td>
+                  <td>
+                    IP address, browser type, OS, referring URLs, error logs
+                  </td>
+                  <td>Automatically collected</td>
+                </tr>
+                <tr>
+                  <td><strong>Payment Data</strong></td>
+                  <td>
+                    Mobile money number, last 4 digits of card (full card data
+                    held by payment processor)
+                  </td>
+                  <td>You, at checkout</td>
+                </tr>
+                <tr>
+                  <td><strong>Communications</strong></td>
+                  <td>Support tickets, emails, feedback messages</td>
+                  <td>You, when contacting us</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="callout callout-info">
+              <i class="fa fa-circle-info"></i>
+              <div>
+                <strong>Customer data you enter:</strong> When you add your
+                clients' details into the GoldTrack CRM, you become the data
+                controller for that information. You are responsible for
+                ensuring you have a lawful basis to store and process your
+                clients' personal data and that you comply with applicable data
+                protection laws in your jurisdiction.
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. How We Use It -->
+          <div class="section" id="pp-how">
+            <div class="section-num">Section 03</div>
+            <h2 class="section-title">
+              <i class="fa fa-gears"></i> How We Use Your Data
+            </h2>
+            <p>
+              We use the information we collect for the following purposes,
+              relying on the legal bases indicated:
+            </p>
+            <ul>
+              <li>
+                <strong>Service Delivery</strong> — to operate, maintain, and
+                improve the GoldTrack platform and provide the features you use
+                <em>(contractual necessity)</em>
+              </li>
+              <li>
+                <strong>Account Management</strong> — to create and manage your
+                account, verify your identity, and authenticate your logins
+                <em>(contractual necessity)</em>
+              </li>
+              <li>
+                <strong>Billing &amp; Payments</strong> — to process
+                subscription payments, send invoices, and manage billing
+                disputes <em>(contractual necessity, legal obligation)</em>
+              </li>
+              <li>
+                <strong>Customer Support</strong> — to respond to your
+                enquiries, troubleshoot issues, and improve our support
+                processes <em>(legitimate interests)</em>
+              </li>
+              <li>
+                <strong>Security &amp; Fraud Prevention</strong> — to detect,
+                investigate, and prevent unauthorised access, fraud, and abuse
+                <em>(legitimate interests, legal obligation)</em>
+              </li>
+              <li>
+                <strong>Analytics &amp; Product Improvement</strong> — to
+                understand how users interact with the platform and guide
+                feature development <em>(legitimate interests)</em>
+              </li>
+              <li>
+                <strong>Legal Compliance</strong> — to comply with applicable
+                laws, respond to legal requests, and enforce our Terms
+                <em>(legal obligation)</em>
+              </li>
+              <li>
+                <strong>Marketing Communications</strong> — to send product
+                updates, new features, and relevant offers where you have opted
+                in <em>(consent)</em>
+              </li>
+            </ul>
+            <p>
+              We will never sell your personal data to third parties for their
+              own marketing purposes.
+            </p>
+          </div>
+
+          <!-- 4. Sharing -->
+          <div class="section" id="pp-share">
+            <div class="section-num">Section 04</div>
+            <h2 class="section-title">
+              <i class="fa fa-share-nodes"></i> Sharing Your Information
+            </h2>
+            <p>
+              We do not sell, rent, or trade your personal information. We may
+              share your data in the following limited circumstances:
+            </p>
+            <ul>
+              <li>
+                <strong>Service Providers:</strong> We engage trusted
+                third-party vendors to help us operate the Service, including
+                cloud hosting (AWS Africa), payment processors, email delivery
+                services, and analytics tools. These vendors are bound by data
+                processing agreements and may only use your data on our behalf.
+              </li>
+              <li>
+                <strong>Market Data Providers:</strong> We receive live gold
+                price and currency data from third-party financial data APIs. No
+                personal data is shared with these providers.
+              </li>
+              <li>
+                <strong>Legal Requirements:</strong> We may disclose your
+                information if required to do so by law or in response to a
+                valid order from a competent court, regulator, or government
+                authority in Ghana or elsewhere, including the Bank of Ghana,
+                Minerals Commission, or Ghana Revenue Authority (GRA).
+              </li>
+              <li>
+                <strong>Business Transfers:</strong> In the event of a merger,
+                acquisition, or sale of all or substantially all of our assets,
+                your information may be transferred as part of that transaction.
+                We will notify you before your data becomes subject to a
+                different privacy policy.
+              </li>
+              <li>
+                <strong>Protection of Rights:</strong> We may disclose
+                information where we believe it is necessary to investigate or
+                prevent fraud, illegal activity, or threats to the safety of any
+                person.
+              </li>
+              <li>
+                <strong>With Your Consent:</strong> We may share your
+                information for any other purpose with your explicit prior
+                consent.
+              </li>
+            </ul>
+          </div>
+
+          <!-- 5. Cookies -->
+          <div class="section" id="pp-cookies">
+            <div class="section-num">Section 05</div>
+            <h2 class="section-title">
+              <i class="fa fa-cookie-bite"></i> Cookies &amp; Tracking
+              Technologies
+            </h2>
+            <p>
+              GoldTrack uses cookies and similar technologies to enhance your
+              experience, maintain your session, and understand how our platform
+              is used. We use the following types of cookies:
+            </p>
+            <table class="legal-table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Purpose</th>
+                  <th>Can opt out?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Essential</strong></td>
+                  <td>
+                    Session management, authentication, security (CSRF tokens)
+                  </td>
+                  <td>No — required for the platform to function</td>
+                </tr>
+                <tr>
+                  <td><strong>Preferences</strong></td>
+                  <td>
+                    Remembering your theme (light/dark), language, and display
+                    settings
+                  </td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td><strong>Analytics</strong></td>
+                  <td>
+                    Understanding feature usage and page performance
+                    (anonymised)
+                  </td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td><strong>Marketing</strong></td>
+                  <td>
+                    Interest-based advertising (only where you have consented)
+                  </td>
+                  <td>Yes</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>
+              You can manage cookie preferences through your browser settings.
+              Note that disabling essential cookies will prevent the platform
+              from functioning correctly. Our platform does not currently
+              respond to "Do Not Track" browser signals.
+            </p>
+          </div>
+
+          <!-- 6. Retention -->
+          <div class="section" id="pp-retention">
+            <div class="section-num">Section 06</div>
+            <h2 class="section-title">
+              <i class="fa fa-clock-rotate-left"></i> Data Retention
+            </h2>
+            <p>
+              We retain your personal information for as long as your account is
+              active or as needed to provide the Service. Specific retention
+              periods are as follows:
+            </p>
+            <ul>
+              <li>
+                <strong>Account data</strong> — retained for the duration of
+                your account and for 90 days after deletion, to allow for
+                account recovery or compliance obligations
+              </li>
+              <li>
+                <strong>Transaction records</strong> — retained for a minimum of
+                7 years to comply with Ghanaian tax and commercial
+                record-keeping requirements under the Revenue Administration Act
+                and the Companies Act
+              </li>
+              <li>
+                <strong>Payment records</strong> — retained for 7 years in
+                accordance with financial regulations
+              </li>
+              <li>
+                <strong>Support correspondence</strong> — retained for 3 years
+                after the issue is resolved
+              </li>
+              <li>
+                <strong>Usage and log data</strong> — retained for up to 24
+                months for security and fraud investigation purposes
+              </li>
+              <li>
+                <strong>Marketing consents</strong> — retained until you
+                withdraw consent
+              </li>
+            </ul>
+            <p>
+              After applicable retention periods, data is securely deleted or
+              irreversibly anonymised.
+            </p>
+          </div>
+
+          <!-- 7. Security -->
+          <div class="section" id="pp-security">
+            <div class="section-num">Section 07</div>
+            <h2 class="section-title">
+              <i class="fa fa-shield-halved"></i> Data Security
+            </h2>
+            <p>
+              We take data security seriously and implement industry-standard
+              technical and organisational measures to protect your information,
+              including:
+            </p>
+            <ul>
+              <li>256-bit AES encryption for data at rest</li>
+              <li>
+                TLS 1.3 encryption for all data in transit (HTTPS enforced)
+              </li>
+              <li>
+                Bcrypt hashing for all stored passwords — we never store
+                plaintext passwords
+              </li>
+              <li>
+                Role-based access controls limiting internal staff access to
+                personal data
+              </li>
+              <li>
+                Regular third-party security audits and penetration testing
+              </li>
+              <li>
+                Multi-factor authentication (MFA) available and recommended for
+                all accounts
+              </li>
+              <li>
+                Automated threat detection and intrusion prevention systems
+              </li>
+            </ul>
+            <div class="callout callout-warn">
+              <i class="fa fa-triangle-exclamation"></i>
+              <div>
+                Despite our best efforts, no security system is impenetrable. In
+                the event of a data breach that poses a risk to your rights and
+                freedoms, we will notify you and the Data Protection Commission
+                of Ghana within 72 hours of becoming aware of the breach, as
+                required by applicable law.
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. Rights -->
+          <div class="section" id="pp-rights">
+            <div class="section-num">Section 08</div>
+            <h2 class="section-title">
+              <i class="fa fa-person-circle-check"></i> Your Rights
+            </h2>
+            <p>
+              Under Ghana's Data Protection Act, 2012 and applicable
+              regulations, you have the following rights regarding your personal
+              data:
+            </p>
+            <ul>
+              <li>
+                <strong>Right of Access</strong> — request a copy of the
+                personal data we hold about you
+              </li>
+              <li>
+                <strong>Right to Rectification</strong> — request correction of
+                any inaccurate or incomplete information
+              </li>
+              <li>
+                <strong>Right to Erasure</strong> — request deletion of your
+                personal data, subject to legal retention obligations
+              </li>
+              <li>
+                <strong>Right to Restrict Processing</strong> — request that we
+                limit how we use your data in certain circumstances
+              </li>
+              <li>
+                <strong>Right to Data Portability</strong> — receive your
+                personal data in a structured, machine-readable format
+              </li>
+              <li>
+                <strong>Right to Object</strong> — object to processing based on
+                our legitimate interests or for direct marketing purposes
+              </li>
+              <li>
+                <strong>Right to Withdraw Consent</strong> — where processing is
+                based on consent, withdraw it at any time without affecting
+                prior processing
+              </li>
+            </ul>
+            <p>
+              To exercise any of these rights, submit a request to
+              <a href="mailto:privacy@goldtrack.gh" style="color: var(--gold)"
+                >privacy@goldtrack.gh</a
+              >. We will respond within 30 days of receiving your verified
+              request. We may need to verify your identity before processing the
+              request.
+            </p>
+            <p>
+              If you believe we have processed your data unlawfully, you have
+              the right to lodge a complaint with the
+              <strong>Data Protection Commission of Ghana</strong> at
+              <a
+                href="https://www.dataprotection.org.gh"
+                target="_blank"
+                style="color: var(--gold)"
+                >dataprotection.org.gh</a
+              >.
+            </p>
+          </div>
+
+          <!-- 9. Children -->
+          <div class="section" id="pp-children">
+            <div class="section-num">Section 09</div>
+            <h2 class="section-title">
+              <i class="fa fa-child"></i> Children's Privacy
+            </h2>
+            <p>
+              GoldTrack is a business platform intended solely for use by adults
+              aged 18 and over. We do not knowingly collect personal information
+              from individuals under the age of 18.
+            </p>
+            <p>
+              If we become aware that we have inadvertently collected personal
+              information from a minor, we will take immediate steps to delete
+              that information from our systems. If you believe we may have
+              collected information from a minor, please contact us at
+              <a href="mailto:privacy@goldtrack.gh" style="color: var(--gold)"
+                >privacy@goldtrack.gh</a
+              >.
+            </p>
+          </div>
+
+          <!-- 10. International Transfers -->
+          <div class="section" id="pp-transfers">
+            <div class="section-num">Section 10</div>
+            <h2 class="section-title">
+              <i class="fa fa-globe"></i> International Data Transfers
+            </h2>
+            <p>
+              GoldTrack is headquartered in Ghana. Your data is primarily stored
+              on servers located within Africa (AWS Cape Town and Lagos
+              regions). Certain service providers — such as email delivery,
+              error monitoring, and analytics tools — may process data in other
+              countries including the United States or European Union.
+            </p>
+            <p>
+              When transferring data outside Ghana to countries that do not have
+              equivalent data protection laws, we ensure appropriate safeguards
+              are in place, including:
+            </p>
+            <ul>
+              <li>
+                Standard Contractual Clauses (SCCs) approved by the European
+                Commission
+              </li>
+              <li>
+                Data processing agreements incorporating data protection
+                obligations
+              </li>
+              <li>Transfer Impact Assessments where required</li>
+            </ul>
+            <p>
+              By using the Service, you acknowledge and consent to these
+              transfers as described in this policy.
+            </p>
+          </div>
+
+          <!-- 11. Changes -->
+          <div class="section" id="pp-changes">
+            <div class="section-num">Section 11</div>
+            <h2 class="section-title">
+              <i class="fa fa-rotate"></i> Changes to This Policy
+            </h2>
+            <p>
+              We may update this Privacy Policy from time to time to reflect
+              changes in our practices, technology, legal requirements, or other
+              factors. When we make material changes, we will:
+            </p>
+            <ul>
+              <li>
+                Update the "Last updated" date at the top of this document
+              </li>
+              <li>
+                Send an email notification to all registered users at least 14
+                days before the changes take effect
+              </li>
+              <li>Display a prominent notice in the GoldTrack dashboard</li>
+            </ul>
+            <p>
+              Your continued use of the Service after the effective date of any
+              revised Privacy Policy constitutes your acceptance of the updated
+              terms. If you do not agree to the changes, you should stop using
+              the Service and close your account before the changes take effect.
+            </p>
+            <p>
+              We encourage you to review this policy periodically. Previous
+              versions of this policy are available upon request.
+            </p>
+          </div>
+
+          <!-- 12. Contact -->
+          <div class="section" id="pp-contact">
+            <div class="section-num">Section 12</div>
+            <h2 class="section-title">
+              <i class="fa fa-envelope"></i> Contact &amp; Data Protection
+              Officer
+            </h2>
+            <p>
+              For any privacy-related questions, concerns, or to exercise your
+              rights, please contact our Data Protection Officer:
+            </p>
+            <div class="contact-card">
+              <div class="contact-icon"><i class="fa fa-user-shield"></i></div>
+              <div>
+                <div class="contact-title">
+                  Data Protection Officer — GoldTrack Technologies Ltd
+                </div>
+                <div class="contact-detail">
+                  Sowutwom, Pentecost University, Accra, Ghana<br />
+                  Email:
+                  <a href="mailto:ai.revominds@gmail.com"
+                    >ai.revominds@gmail.com</a
+                  ><br />
+                  Phone: <a href="tel:+233553977242">+233 55 397 7242</a><br />
+                  Business hours: Mon–Fri, 08:00–17:00 GMT<br />
+                  <br />
+                  Registered with the
+                  <strong>Data Protection Commission of Ghana</strong><br />
+                  Registration No: DPC-2025-GT-00142
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="doc-footer">
+            <span
+              >© <small class="ft-cyr"></small> GoldTrack Technologies Ltd. All
+              rights reserved | Developed by
+              <a href="https://github.com/revominds">Revominds</a> &
+              <a href="#">Godfred</a>
+            </span>
+            <a
+              href="#"
+              onclick="
+                switchDoc('tos');
+                return false;
+              "
+              >← View Terms of Service</a
+            >
+          </div>
+        </div>
+        <!-- /panel-pp -->
+      </main>
+    </div>
+    <!-- /layout -->
+
+    <script src="./assets/fontawesome/all.min.js"></script>
+    <script src="./assets/custom/legal/js/main.js"></script>
+  </body>
+</html>
